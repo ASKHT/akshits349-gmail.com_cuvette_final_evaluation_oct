@@ -1,0 +1,109 @@
+.input{
+  width: 42rem;
+  height: 4.5rem;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+  font-size: 1.5rem;
+  color: #9f9f9f;
+  padding-left: 2rem;
+}
+.quizwrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:19rem;
+    justify-content: space-between;
+    padding-left:2rem;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+    font-family:poppins;
+    
+}
+.quiztype{
+    display: flex;
+    width:50rem;
+    justify-content:center;
+    align-items: center;
+    gap:4rem;
+}
+/* .quiztypewrapper{
+    display: flex;
+    flex-direction:column;
+    height:10rem;
+    justify-content:space-between;
+} */
+.text{
+    font-size: 1.5rem;
+    color:gray;
+}
+.quizoptionbutton{
+    width:12rem;
+    height:3rem;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    font-size: 20px;
+    color:gray;
+    font-weight:400;
+    border-radius: 8px;
+}
+.actionbuttoncontainer{
+    display: flex;
+    width:50rem;
+    justify-content:space-around;
+}
+.actionbutton1{
+     appearance: none;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  color:#5A5757;
+  font-size:22px;
+      width:19rem;
+    height:3rem;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    border-radius:10px;
+}
+.actionbutton2{
+    border-radius: 10px;
+     appearance: none;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  background-color: #60B84B;
+      width:19rem;
+    height:3rem;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    color:white;
+    font-size:22px;
+}
+.activequizoptionbutton{
+        width:12rem;
+    height:3rem;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    font-size: 20px;
+    color:white;
+    font-weight:400;
+    border-radius: 8px;
+    background-color:#60B84B ;
+}

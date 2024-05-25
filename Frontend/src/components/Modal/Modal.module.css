@@ -1,0 +1,35 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100vh;
+    width: 100vw;
+    z-index: 20;
+    font-family: "DM Sans";
+    /* opacity: 1; */
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: white;
+    border-radius: 20px;
+    padding: 1rem;
+    max-width: 60%;
+    box-shadow: 0px 4px 30px 0px #ffffff40;
+}
+
+.close {
+    align-self: flex-end;
+     color:red;
+    font-size: 2rem;
+    cursor: pointer;
+    border: 2px solid red;
+    border-radius: 50%;
+}
