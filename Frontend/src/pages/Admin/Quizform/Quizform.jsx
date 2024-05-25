@@ -6,13 +6,10 @@ import { v4 as uuidv4 } from "uuid";
 import Quizoptions from "./Quizoptions.jsx";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Usercontext from "../../../Context/Usercontext.js";
-import Timer from "./Timer.jsx";
 const Quizform = ({ setShowmodal }) => {
-  const { quiztype, inputdata, optiontype, setOptiontype } =
+  const { quiztype, inputdata, setInputdata, setQuiztype } =
     useContext(Usercontext);
   const [activequestion, setActivequestion] = useState(0);
-  const [question, setQuestion] = useState("");
-  const [timer, setTimer] = useState("");
   const [data, setData] = useState({
     category: quiztype,
     title: inputdata,
@@ -25,8 +22,8 @@ const Quizform = ({ setShowmodal }) => {
           { id: uuidv4(), text: "", image: "" },
           { id: uuidv4(), text: "", image: "" },
         ],
-        answer: 0,
-        timer: "null",
+        answer: "0",
+        timer: "OFF",
       },
     ],
   });
@@ -60,8 +57,8 @@ const Quizform = ({ setShowmodal }) => {
         { id: uuidv4(), text: "", image: "" },
         { id: uuidv4(), text: "", image: "" },
       ],
-      answer: 0,
-      timer: "null",
+      answer: "0",
+      timer: "OFF",
     };
     setData((prevState) => ({
       ...prevState,
@@ -149,7 +146,11 @@ const Quizform = ({ setShowmodal }) => {
   };
 
   return (
-    <Modal setShowmodal={setShowmodal}>
+    <Modal
+      setShowmodal={setShowmodal}
+      setQuiztype={setQuiztype}
+      setInputdata={setInputdata}
+    >
       <div className={styles.Quizmodalwrapper}>
         <div className={styles.questionwrapper}>
           <div className={styles.questiontabs}>
@@ -412,7 +413,7 @@ const Quizform = ({ setShowmodal }) => {
                     }`}
                     onClick={() => handletimer("5")} // Pass the value directly
                   >
-                    <p>5</p>
+                    <p>5 sec</p>
                   </div>
                   <div
                     className={`${
@@ -422,12 +423,16 @@ const Quizform = ({ setShowmodal }) => {
                     }`}
                     onClick={() => handletimer("10")} // Pass the value directly
                   >
-                    <p>10</p>
+                    <p>10 sec</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div className={styles.actionbuttoncontainer}>
+          <button className={styles.actionbutton1}>Cancel</button>
+          <button className={styles.actionbutton2}>Create quiz</button>
         </div>
       </div>
     </Modal>

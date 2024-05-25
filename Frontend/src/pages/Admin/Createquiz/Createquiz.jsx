@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "../../../components/Modal/Modal.jsx";
 import styles from "./Createquiz.module.css";
 import { toast } from "react-hot-toast";
@@ -29,9 +29,18 @@ const Createquiz = ({ setShowmodal, modal }) => {
     setShowmodal(quizType);
     // console.log(modal);
   };
+  const resetfunction = () => {
+    setShowmodal("");
+    setQuiztype("");
+    setInputdata("");
+  };
   return (
     <>
-      <Modal setShowmodal={setShowmodal}>
+      <Modal
+        setShowmodal={setShowmodal}
+        setQuiztype={setQuiztype}
+        setInputdata={setInputdata}
+      >
         <div className={styles.quizwrapper}>
           <div>
             <input
@@ -67,7 +76,7 @@ const Createquiz = ({ setShowmodal, modal }) => {
           <div className={styles.actionbuttoncontainer}>
             <button
               className={styles.actionbutton1}
-              onClick={() => setShowmodal("")}
+              onClick={() => resetfunction()}
             >
               Cancel
             </button>

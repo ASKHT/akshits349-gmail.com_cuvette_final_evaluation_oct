@@ -1,0 +1,224 @@
+.Quizmodalwrapper{
+    width:54rem;
+    height:36rem;
+    font-family: poppins;
+    display: flex;
+    flex-direction: column;
+     gap:2rem;
+    align-items:center;
+}
+
+.questionwrapper{
+    width: 95%;
+    display: flex;
+    justify-content:space-between;
+    padding-top: 3rem;
+    align-items: center;
+ 
+}
+.questiontabs{
+    display: flex;
+    gap:1rem;
+    align-items:center;
+}
+
+.questionno{
+    position: relative;
+    width:3rem;
+    height:3rem;
+    border-radius: 50%;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.crossbutton{
+    position: absolute;
+    /* margin-left:42px; */
+    right:0;
+    bottom:26px;
+    color:gray;
+    cursor: pointer;
+    font-size:15px;
+}
+/* .wrapper{
+
+} */
+
+.inputcontainerwrapper{
+    width: 100%;
+    height: 100%;
+    /* background-color:red; */
+}
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  
+}
+.inputcontainer{
+    width:100%;
+    height:3rem;
+    display: flex;
+    justify-content: center;
+}
+.inputcontainer input{
+    width:90%;
+    height:100%;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+}
+.choiceType {
+  display: flex;
+  margin: 1rem 0;
+  justify-content: space-around;
+  gap: 1.5rem;
+  margin: 1rem 4.3rem;
+  color:gray;
+}
+.activeclass {
+  border: 2px solid grey;
+}
+/* newcss */
+
+.inputcontaineroptions{
+   width:100%;
+   display: flex;
+  align-items: center;
+  text-align: center; 
+   gap:1rem; 
+ /* border:1px solid red;  */
+}
+.inputcontainerwrapper1{
+     width:100%;
+   display: flex;
+   /* flex-direction: column; */
+  align-items: center;
+  text-align: center;
+    
+}
+.inputcontainerwrapper1 input{
+    /* border:1px solid black; */
+    height:3rem;
+    width:18rem;
+    display: flex;
+    justify-content:flex-start;
+     box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+}
+
+.optionwrapper{
+    display: flex;
+    flex-direction:column;
+    gap:1rem;
+}
+
+.textandimagecotainer{
+    display: flex;
+    gap:1rem;
+}
+.addoptionbutton{
+     border-radius: 10px;
+     appearance: none;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+      width:19rem;
+    height:3rem;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    color:gray;
+    font-size:22px;
+    margin-left: 2rem;
+}
+.timerwrapper{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    right:18px;
+    top:15px;
+    align-items: center;
+}
+.timer{
+    display: flex;
+    flex-direction: column;
+    height:14rem;
+   gap:13px;
+   align-items: center;
+   color:gray;
+   /* justify-content: center; */
+}
+.buttontimer{
+    width:5rem;
+    height:3rem;
+    display: flex;
+    justify-content:center;
+     box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+     align-items: center;
+     border-radius: 10px;
+     color:gray;
+}
+.buttontimeractive{
+    width:5rem;
+    height:3rem;
+    display: flex;
+    justify-content:center;
+     box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+     align-items: center;
+     border-radius: 10px;
+     color:gray;
+     background-color: red;
+     color:white;
+}
+.actionbuttoncontainer{
+    width:45rem;
+    display: flex;
+    justify-content:space-between;
+    padding-left: 2rem;
+    padding-bottom: 1rem;
+}
+.actionbutton1{
+     appearance: none;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  color:#5A5757;
+  font-size:22px;
+      width:19rem;
+    height:3rem;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    border-radius:10px;
+}
+
+.actionbutton2{
+    border-radius: 10px;
+     appearance: none;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  background-color: #60B84B;
+      width:19rem;
+    height:3rem;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    color:white;
+    font-size:22px;
+}

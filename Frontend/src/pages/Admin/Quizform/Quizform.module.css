@@ -1,6 +1,6 @@
 .Quizmodalwrapper{
     width:54rem;
-    height:32rem;
+    height:34rem;
     font-family: poppins;
     display: flex;
     flex-direction: column;
@@ -12,7 +12,7 @@
     width: 95%;
     display: flex;
     justify-content:space-between;
-    padding-top: 3rem;
+    padding-top: 1rem;
     align-items: center;
  
 }
@@ -140,7 +140,7 @@
     display: flex;
     justify-content: center;
     position: absolute;
-    right:18px;
+    right:4rem;
     top:15px;
     align-items: center;
 }
@@ -154,7 +154,7 @@
    /* justify-content: center; */
 }
 .buttontimer{
-    width:5rem;
+    width:6rem;
     height:3rem;
     display: flex;
     justify-content:center;
@@ -164,7 +164,7 @@
      color:gray;
 }
 .buttontimeractive{
-    width:5rem;
+    width:6rem;
     height:3rem;
     display: flex;
     justify-content:center;
@@ -174,4 +174,51 @@
      color:gray;
      background-color: red;
      color:white;
+}
+.actionbuttoncontainer{
+    width:45rem;
+    display: flex;
+    justify-content:space-between;
+    padding-left: 2rem;
+    padding-bottom: 1rem;
+}
+.actionbutton1{
+     appearance: none;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  color:#5A5757;
+  font-size:22px;
+      width:19rem;
+    height:3rem;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    border-radius:10px;
+}
+
+.actionbutton2{
+    border-radius: 10px;
+     appearance: none;
+  background-color: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: none;
+  background-color: #60B84B;
+      width:19rem;
+    height:3rem;
+    display: flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.15);
+    color:white;
+    font-size:22px;
 }
