@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import * as Yup from "yup";
 import styles from "./styles/Common.module.css";
 import { useNavigate } from "react-router-dom";
-
+import { loginUser } from "../../api/Auth.api";
 const Login = () => {
   const [userInfo, setUserInfo] = useState({
     email: "",
@@ -38,7 +38,8 @@ const Login = () => {
     e.preventDefault();
     try {
       await validationSchema.validate(userInfo, { abortEarly: false });
-      // console.log(userInfo);
+      await loginUser(userInfo);
+      navigate("/");
     } catch (validationErrors) {
       const formattedErrors = {};
       validationErrors.inner.forEach((error) => {

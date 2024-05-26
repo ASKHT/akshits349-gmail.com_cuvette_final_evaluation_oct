@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast";
 import styles from "./styles/Common.module.css";
 import { useState } from "react";
 import * as Yup from "yup";
-
+import { register } from "../../api/Auth.api";
 const Signup = () => {
   const [userInfo, setUserInfo] = useState({
     name: "",
@@ -45,6 +45,8 @@ const Signup = () => {
     e.preventDefault();
     try {
       await validationSchema.validate(userInfo, { abortEarly: false });
+      await register(userInfo);
+      navigate("/");
     } catch (validationErrors) {
       const formattedErrors = {};
       validationErrors.inner.forEach((error) => {
