@@ -1,0 +1,111 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 92%;
+  margin-left: 5rem;
+  max-height: 100vh;
+  position: relative;
+}
+
+.quizExtraDetails {
+  position: absolute;
+  right: 2.88rem;
+  top: 3.5rem;
+  color: #ff5d01;
+  font-family: Poppins;
+  font-size: 0.9375rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.quizHeading {
+  color: #5076ff;
+  font-family: Poppins;
+  font-size: 2.5rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-top: 3.5rem;
+}
+
+.questions {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  overflow: scroll;
+  margin: 1.3rem 0;
+}
+.questions::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+.question h2 {
+  margin: 0;
+  color: #000;
+  font-family: Poppins;
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.options {
+  display: flex;
+  gap: 2rem;
+  margin-top: 1.44rem;
+}
+.optionCard {
+  width: 15.3125rem;
+  height: 5.5625rem;
+  flex-shrink: 0;
+  border-radius: 0.3125rem;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.pollCard {
+  width: 12.3125rem;
+  height: 5.5625rem;
+  flex-shrink: 0;
+  border-radius: 0.3125rem;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.pollAnswer {
+  position: absolute;
+  color: #474444;
+  font-family: Poppins;
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  left: 1.2rem;
+}
+.Answer {
+  color: #474444;
+  font-family: Poppins;
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.optionTitle {
+  color: #474444;
+  font-family: Poppins;
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.lineQuiz {
+  width: 58rem;
+  margin-top: 2.31rem;
+}

@@ -5,6 +5,7 @@ import { useState, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Usercontext from "../../../Context/Usercontext.js";
+import { toast } from "react-hot-toast";
 const Pollform = ({ setShowmodal }) => {
   const { quiztype, inputdata, setInputdata, setQuiztype } =
     useContext(Usercontext);
@@ -21,8 +22,6 @@ const Pollform = ({ setShowmodal }) => {
           { id: uuidv4(), text: "", image: "" },
           { id: uuidv4(), text: "", image: "" },
         ],
-        answer: 0,
-        timer: "null",
       },
     ],
   });
@@ -56,8 +55,6 @@ const Pollform = ({ setShowmodal }) => {
         { id: uuidv4(), text: "", image: "" },
         { id: uuidv4(), text: "", image: "" },
       ],
-      answer: 0,
-      timer: "null",
     };
     setPolldata((prevState) => ({
       ...prevState,
@@ -133,7 +130,39 @@ const Pollform = ({ setShowmodal }) => {
       return newArr;
     });
   };
+  const handleSubmit = () => {
+    if (!polldata.category || !polldata.title) {
+      toast.error("Category and title are required.");
+      return;
+    }
 
+    for (const question of polldata.questions) {
+      if (
+        !question.question ||
+        !question.optionsType ||
+        (question.optionsType === "text" &&
+          question.options.some((option) => option.text === "")) ||
+        (question.optionsType === "url" &&
+          question.options.some((option) => option.image === "")) ||
+        (question.optionsType === "textandurl" &&
+          question.options.some(
+            (option) => option.text === "" || option.image === ""
+          ))
+      ) {
+        toast.error(
+          "All fields for each question must be filled according to the question type."
+        );
+        return;
+      }
+    }
+    console.log(polldata);
+    toast.success("Data sent to backend successfully!");
+  };
+  const cancelpoll = () => {
+    setShowmodal("");
+    setQuiztype("");
+    setInputdata("");
+  };
   return (
     <Modal
       setShowmodal={setShowmodal}
@@ -262,7 +291,7 @@ const Pollform = ({ setShowmodal }) => {
                         key={item.id}
                       >
                         {/* {console.log(item)} */}
-                        <input type="radio" name="options" id={index} />
+                        {/* <input type="radio" name="options" id={index} /> */}
                         <div className={styles.inputcontainerwrapper1}>
                           <label htmlFor={index}>
                             {polldata?.questions[activequestion]
@@ -394,8 +423,12 @@ const Pollform = ({ setShowmodal }) => {
           </div>
         </div>
         <div className={styles.actionbuttoncontainer}>
-          <button className={styles.actionbutton1}>Cancel</button>
-          <button className={styles.actionbutton2}>Create Quiz</button>
+          <button className={styles.actionbutton1} onClick={cancelpoll}>
+            Cancel
+          </button>
+          <button className={styles.actionbutton2} onClick={handleSubmit}>
+            Create Quiz
+          </button>
         </div>
       </div>
     </Modal>

@@ -5,6 +5,7 @@ import { Toaster } from "react-hot-toast";
 import Adminportal from "./pages/Admin/Adminportal/Adminportal.jsx";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard.jsx";
 import Analytics from "./pages/Admin/Analytics/Analytics.jsx";
+import Quizanalysis from "./components/Quizanalysis/Quizanalysis.jsx";
 const App = () => {
   return (
     <>
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/" element={<Adminportal />}>
             <Route index element={<Dashboard />} />
             <Route path="analytics" element={<Analytics />} />
+            <Route path="/analysis/:id" element={<Quizanalysis />} />
           </Route>
         </Routes>
       </BrowserRouter>

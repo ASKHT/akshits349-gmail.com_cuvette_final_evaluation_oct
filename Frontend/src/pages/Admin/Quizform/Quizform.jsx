@@ -24,7 +24,7 @@ const Quizform = ({ setShowmodal }) => {
           { id: uuidv4(), text: "", image: "" },
           { id: uuidv4(), text: "", image: "" },
         ],
-        answer: "0",
+        answer: "",
         timer: "OFF",
       },
     ],
@@ -59,7 +59,7 @@ const Quizform = ({ setShowmodal }) => {
         { id: uuidv4(), text: "", image: "" },
         { id: uuidv4(), text: "", image: "" },
       ],
-      answer: "0",
+      answer: "",
       timer: "OFF",
     };
     setData((prevState) => ({
@@ -186,7 +186,11 @@ const Quizform = ({ setShowmodal }) => {
     }
     toast.success("Data sent to backend successfully!");
   };
-
+  const cancelpoll = () => {
+    setShowmodal("");
+    setQuiztype("");
+    setInputdata("");
+  };
   return (
     <Modal
       setShowmodal={setShowmodal}
@@ -511,7 +515,9 @@ const Quizform = ({ setShowmodal }) => {
           </div>
         </div>
         <div className={styles.actionbuttoncontainer}>
-          <button className={styles.actionbutton1}>Cancel</button>
+          <button className={styles.actionbutton1} onClick={cancelpoll}>
+            Cancel
+          </button>
           <button className={styles.actionbutton2} onClick={handleSubmit}>
             Create quiz
           </button>

@@ -5,12 +5,12 @@ import { createJwtToken } from "../utils/Token.util.js";
 import othererror from "../utils/Othererror.utils.js";
 // register
 export const register = asyncWrapper(async (req, res, next) => {
-    const { name, email, password } = req.body;
+    const { name, email, password,confirmPassword } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password||!confirmPassword) {
         throw next(new ApiError("400", "required field missing"));
     }
-
+     
     const emailAlreadyExist = await User.findOne({ email });
     if (emailAlreadyExist) {
         return next(new ApiError("400", "email already exist"));

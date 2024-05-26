@@ -1,6 +1,6 @@
 .Quizmodalwrapper{
     width:54rem;
-    height:34rem;
+    height:36rem;
     font-family: poppins;
     display: flex;
     flex-direction: column;
@@ -161,6 +161,7 @@
    gap:13px;
    align-items: center;
    color:gray;
+   cursor:pointer;
    /* justify-content: center; */
 }
 .buttontimer{
@@ -190,7 +191,7 @@
     display: flex;
     justify-content:space-between;
     padding-left: 2rem;
-    padding-bottom: 1rem;
+    padding-bottom: 2rem;
 }
 .actionbutton1{
      appearance: none;
