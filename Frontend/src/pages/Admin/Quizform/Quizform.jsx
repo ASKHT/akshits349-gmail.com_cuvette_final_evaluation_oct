@@ -3,13 +3,15 @@ import Modal from "../../../components/Modal/Modal";
 import styles from "./Quizform.module.css";
 import { useState, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
-import Quizoptions from "./Quizoptions.jsx";
+import * as Yup from "yup";
+import { toast } from "react-hot-toast";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Usercontext from "../../../Context/Usercontext.js";
 const Quizform = ({ setShowmodal }) => {
   const { quiztype, inputdata, setInputdata, setQuiztype } =
     useContext(Usercontext);
   const [activequestion, setActivequestion] = useState(0);
+  const [formErrors, setFormErrors] = useState({});
   const [data, setData] = useState({
     category: quiztype,
     title: inputdata,
@@ -144,6 +146,46 @@ const Quizform = ({ setShowmodal }) => {
       return newArr;
     });
   };
+  const handleOptionSelect = (e, optionId) => {
+    setData((prevArr) => {
+      const newArr = { ...prevArr }; // Create a copy of the array
+      newArr.questions[activequestion] = {
+        ...newArr.questions[activequestion],
+        answer: e.target.value,
+      };
+      return newArr;
+    });
+  };
+
+  const handleSubmit = () => {
+    if (!data.category || !data.title) {
+      toast.error("Category and title are required.");
+      return;
+    }
+
+    for (const question of data.questions) {
+      if (
+        !question.question ||
+        !question.optionsType ||
+        (question.optionsType === "text" &&
+          question.options.some((option) => option.text === "")) ||
+        (question.optionsType === "url" &&
+          question.options.some((option) => option.image === "")) ||
+        (question.optionsType === "textandurl" &&
+          question.options.some(
+            (option) => option.text === "" || option.image === ""
+          )) ||
+        !question.answer ||
+        !question.timer
+      ) {
+        toast.error(
+          "All fields for each question must be filled according to the question type."
+        );
+        return;
+      }
+    }
+    toast.success("Data sent to backend successfully!");
+  };
 
   return (
     <Modal
@@ -176,7 +218,10 @@ const Quizform = ({ setShowmodal }) => {
               </div>
             ))}
             {data?.questions?.length < 5 ? (
-              <div onClick={handleaddquestions} style={{ cursor: "pointer" }}>
+              <div
+                onClick={handleaddquestions}
+                style={{ cursor: "pointer", fontSize: "45px", color: "gray" }}
+              >
                 +
               </div>
             ) : (
@@ -264,7 +309,17 @@ const Quizform = ({ setShowmodal }) => {
                         key={item.id}
                       >
                         {/* {console.log(item)} */}
-                        <input type="radio" name="options" id={index} />
+                        <input
+                          type="radio"
+                          id={index}
+                          value={`option${index + 1}`}
+                          checked={
+                            data?.questions[activequestion].answer ===
+                            `option${index + 1}`
+                          }
+                          onChange={(e) => handleOptionSelect(e, item.id)}
+                        />
+
                         <div className={styles.inputcontainerwrapper1}>
                           <label htmlFor={index}>
                             {data?.questions[activequestion]?.optionsType ===
@@ -284,7 +339,14 @@ const Quizform = ({ setShowmodal }) => {
                                   onChange={(e) =>
                                     handleInputChange(e, item?.id)
                                   }
+                                  className={`${
+                                    data?.questions[activequestion]?.answer ===
+                                    `option${index + 1}`
+                                      ? styles.correctanswer
+                                      : ""
+                                  }`}
                                 />
+
                                 {index > 1 && (
                                   <RiDeleteBin5Line
                                     style={{
@@ -313,6 +375,12 @@ const Quizform = ({ setShowmodal }) => {
                                   onChange={(e) =>
                                     handleInputChange(e, item?.id)
                                   }
+                                  className={`${
+                                    data?.questions[activequestion]?.answer ===
+                                    `option${index + 1}`
+                                      ? styles.correctanswer
+                                      : ""
+                                  }`}
                                 />
                                 {index > 1 && (
                                   <RiDeleteBin5Line
@@ -351,6 +419,12 @@ const Quizform = ({ setShowmodal }) => {
                                       onChange={(e) =>
                                         handleInputChange(e, item?.id)
                                       }
+                                      className={`${
+                                        data?.questions[activequestion]
+                                          ?.answer === `option${index + 1}`
+                                          ? styles.correctanswer
+                                          : ""
+                                      }`}
                                     />
                                     <input
                                       name="image"
@@ -359,6 +433,12 @@ const Quizform = ({ setShowmodal }) => {
                                       onChange={(e) =>
                                         handleInputChange(e, item?.id)
                                       }
+                                      className={`${
+                                        data?.questions[activequestion]
+                                          ?.answer === `option${index + 1}`
+                                          ? styles.correctanswer
+                                          : ""
+                                      }`}
                                     />
                                   </div>
                                   {index > 1 && (
@@ -432,7 +512,9 @@ const Quizform = ({ setShowmodal }) => {
         </div>
         <div className={styles.actionbuttoncontainer}>
           <button className={styles.actionbutton1}>Cancel</button>
-          <button className={styles.actionbutton2}>Create quiz</button>
+          <button className={styles.actionbutton2} onClick={handleSubmit}>
+            Create quiz
+          </button>
         </div>
       </div>
     </Modal>
