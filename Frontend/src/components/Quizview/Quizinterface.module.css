@@ -1,0 +1,162 @@
+.quizData {
+  margin: 2rem 2rem;
+}
+.quizDetails {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 1rem;
+}
+
+.timer {
+  color: #d60000;
+}
+.question {
+  text-align: center;
+}
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.option {
+  width: 20.25rem;
+  height: 9.9375rem;
+  border-radius: 0.625rem;
+  background: #f0f0f0;
+}
+.textUrlContainer,
+.imageContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 2rem;
+
+  padding: 0 2rem;
+}
+.textOption {
+  width: 20rem;
+  height: 7rem;
+  border-radius: 0.625rem;
+  background: #f0f0f0;
+  margin: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-size: 2.18rem;
+  font-weight: 600;
+}
+.imageOption,
+.textUrlOption {
+  width: 20.25rem;
+  height: 9.9375rem;
+  flex-shrink: 0;
+  border-radius: 0.625rem;
+  background: #f0f0f0;
+}
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.button {
+  border: none;
+  height: 3.5rem;
+  width: 20rem;
+  flex-shrink: 0;
+  border-radius: 0.625rem;
+  background: #60b84b;
+  color: #fff;
+  font-family: Poppins;
+  font-size: 1.875rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.imgOption {
+  width: 8.5rem;
+  height: 7.5625rem;
+  border-radius: 0.625rem;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.textUrlOption {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  font-size: 2.18rem;
+  padding-right: 1.3rem;
+  padding-left: 0.84rem;
+}
+
+.textUrlOption p {
+  width: calc(100% - 8.5rem);
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+
+  color: #000;
+  font-size: 2.1rem;
+}
+
+.selectedOption {
+  border-radius: 0.625rem;
+  border: 5px solid #5076ff;
+  background: #f0f0f0;
+}
+
+@media (max-width: 600px) {
+  .quizData {
+    font-size: 1.2rem;
+  }
+  .question {
+    font-size: 1.8rem;
+    height: 8.875rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .imageOption {
+    padding: 0.2rem;
+    width: 20.125rem;
+    height: 10.16269rem;
+    flex-shrink: 0;
+  }
+  .options {
+    gap: 0.5rem;
+    display: flex;
+    align-items: flex-start;
+  }
+  .textUrlOption {
+    font-size: 1rem;
+    margin: auto;
+  }
+  .option {
+    font-size: 1.2rem;
+  }
+  .textOption {
+    width: 20.06363rem;
+    height: 3.54375rem;
+    flex-shrink: 0;
+    font-size: 1.6rem;
+    overflow: scroll;
+    margin: 0.5rem;
+  }
+
+  .button {
+    margin: 5rem;
+  }
+}

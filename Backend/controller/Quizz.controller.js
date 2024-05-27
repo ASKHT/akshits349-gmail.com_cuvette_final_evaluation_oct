@@ -2,7 +2,9 @@ import asyncWrapper from "../middleware/asynchandler.middleware.js"
 import Quizz from "../model/Quizz.model.js"
 import ApiError from "../utils/Apierror.utils.js";
 export const createquiz =asyncWrapper( async(req,res,next)=>{
+    // console.log(data)
         const {title,questions,category} = req.body;
+        console.log(title,questions,category)
         if(!title||!questions){
             return res.status(400).json({message:"please fill all fields"})
         }

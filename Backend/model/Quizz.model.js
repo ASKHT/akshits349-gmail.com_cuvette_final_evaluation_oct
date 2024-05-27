@@ -6,7 +6,7 @@ const optionSchema = new Schema({
     },
     image: {
         type: String,
-       validate: [validator.isURL, 'Enter a valid URL']
+        
     },
 });
 
@@ -15,19 +15,13 @@ const questionSchema = new Schema({
         type: String,
         required: [true, "Please provide the question"],
     },
-    optionType: {
+    optionsType: {
         type: String,
         enum: ["text", "image", "textandimage"],
         required: [true, "Please provide the option type"],
     },
     options: {
         type: [optionSchema],
-         validate: {
-      validator: function(options) {
-        return options.length > 1 && options.length <= 4;
-      },
-      message: 'Minimum two option required. Max is four.'
-    },
         required: true,
     },
     answer: {
@@ -35,7 +29,7 @@ const questionSchema = new Schema({
         required: [true, "Please provide the answer"]
     },
     timer: {
-        type: Number,
+        type: String,
         default:null
     },
     numOfAttempts: {
@@ -57,8 +51,7 @@ const quizSchema = new Schema(
         },
         category: {
             type: String,
-            required: [true, "Please provide the quiz type"],
-          
+            required: [true, "Please provide the quiz type"],   
         },
         questions: {
             type: [questionSchema],

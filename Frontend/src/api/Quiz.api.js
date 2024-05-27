@@ -1,16 +1,19 @@
 import axios from "axios"
-
-export const createquiz = async (data) => {
+import { BASE_URL } from "../constants/constant";
+import { toast } from "react-hot-toast";
+export const createquiz = async ({category,questions,title}) => {
   try {
-    const token = localStorage.getItem("token");
-    const response = await axios.post(`${URL}/quiz`, data, {
+    // console.log(questions)
+    const token = JSON.parse(localStorage.getItem("token"));
+    // console.log(token)
+    const {data} = await axios.post(`${BASE_URL}/quiz`,{ category,questions,title}, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;
-  } catch (e) {
-    console.log(e);
-    throw e;
+     toast.success("Data sent to backend successfully!");
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message)
   }
 };

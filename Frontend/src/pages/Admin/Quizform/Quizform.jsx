@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { toast } from "react-hot-toast";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Usercontext from "../../../Context/Usercontext.js";
+import { createquiz } from "../../../api/Quiz.api.js";
 const Quizform = ({ setShowmodal }) => {
   const { quiztype, inputdata, setInputdata, setQuiztype } =
     useContext(Usercontext);
@@ -157,7 +158,7 @@ const Quizform = ({ setShowmodal }) => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!data.category || !data.title) {
       toast.error("Category and title are required.");
       return;
@@ -184,7 +185,10 @@ const Quizform = ({ setShowmodal }) => {
         return;
       }
     }
-    toast.success("Data sent to backend successfully!");
+    await createquiz(data);
+    setShowmodal("");
+    setQuiztype("");
+    setInputdata("");
   };
   const cancelpoll = () => {
     setShowmodal("");
