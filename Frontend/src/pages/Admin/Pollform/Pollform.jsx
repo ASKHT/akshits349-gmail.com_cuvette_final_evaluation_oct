@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Usercontext from "../../../Context/Usercontext.js";
 import { toast } from "react-hot-toast";
+import { createpoll } from "../../../api/Poll.api.js";
 const Pollform = ({ setShowmodal }) => {
   const { quiztype, inputdata, setInputdata, setQuiztype } =
     useContext(Usercontext);
@@ -130,7 +131,7 @@ const Pollform = ({ setShowmodal }) => {
       return newArr;
     });
   };
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!polldata.category || !polldata.title) {
       toast.error("Category and title are required.");
       return;
@@ -155,8 +156,10 @@ const Pollform = ({ setShowmodal }) => {
         return;
       }
     }
-    console.log(polldata);
-    toast.success("Data sent to backend successfully!");
+    await createpoll(polldata);
+    setShowmodal("");
+    setQuiztype("");
+    setInputdata("");
   };
   const cancelpoll = () => {
     setShowmodal("");

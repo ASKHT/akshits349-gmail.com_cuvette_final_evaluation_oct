@@ -19,6 +19,10 @@ const Createquiz = ({ setShowmodal, modal }) => {
       toast.error("Quiz name can't be empty");
       return;
     }
+    if (inputdata.length < 3) {
+      toast.error("Quiz name should be at least 3 characters");
+      return;
+    }
     if (quiztype != "Q&A" && quiztype != "poll") {
       toast.error("Quiz Type can't be empty");
       return;
@@ -27,6 +31,7 @@ const Createquiz = ({ setShowmodal, modal }) => {
     // console.log(typeof quizType);
 
     setShowmodal(quizType);
+    // setQuizcreated(false);
     // console.log(modal);
   };
   const resetfunction = () => {

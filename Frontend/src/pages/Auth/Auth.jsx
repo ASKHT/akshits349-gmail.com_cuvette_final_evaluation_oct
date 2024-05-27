@@ -2,14 +2,14 @@ import { useState } from "react";
 import Login from "../../components/Auth/Login.jsx";
 import styles from "./Auth.module.css";
 import Signup from "../../components/Auth/Signup.jsx";
-import logo from "../../assets/quizzielogo.png"
+import logo from "../../assets/quizzielogo.png";
 const Auth = () => {
   const [isLogin, setLogin] = useState(true);
   return (
     <div className={styles.authWrapper}>
       <div className={styles.auth}>
-        <div style={{paddingTop:"3rem",paddingBottom:"2rem"}}>
-            <img src={logo}/>
+        <div style={{ paddingTop: "3rem", paddingBottom: "2rem" }}>
+          <img src={logo} />
         </div>
         <div className={styles.choices}>
           <button
@@ -30,12 +30,10 @@ const Auth = () => {
           </button>
         </div>
 
-        {isLogin ? <Login /> : <Signup />}
+        {isLogin ? <Login /> : <Signup setLogin={setLogin} />}
       </div>
     </div>
   );
 };
 
 export default Auth;
-
-

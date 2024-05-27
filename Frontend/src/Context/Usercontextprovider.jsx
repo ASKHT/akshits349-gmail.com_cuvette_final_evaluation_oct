@@ -5,6 +5,7 @@ const Usercontextprovider = ({ children }) => {
   const [quiztype, setQuiztype] = useState("");
   const [inputdata, setInputdata] = useState("");
   const [optiontype, setOptiontype] = useState("text");
+  const [quizcreated, setQuizcreated] = useState(false);
   return (
     <Usercontext.Provider
       value={{
@@ -14,6 +15,8 @@ const Usercontextprovider = ({ children }) => {
         setInputdata,
         optiontype,
         setOptiontype,
+        quizcreated,
+        setQuizcreated,
       }}
     >
       {children}

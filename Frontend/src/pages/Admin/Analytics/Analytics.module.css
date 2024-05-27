@@ -1,8 +1,101 @@
-.wrapper {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-margin-top: 7rem;
-gap:3rem;
+.analyticsContainer {
+    padding: 80px 80px;
+    width: 80%;
+  
+}
+
+.heading {
+    color: #5076ff;
+    text-align: center;
+    font-weight: 600;
+    size: 4rem;
+    margin-bottom: 20px;
+}
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    overflow-x: hidden;
+    /* height:20rem; */
+}
+.tablewrapper {
+    width: 100%;
+    height:25rem;
+    overflow-y: scroll;
+}
+table td,
+th {
+    padding: 8px;
+}
+
+table tr:nth-child(even) {
+    background-color: #b3c4ff;
+}
+
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #5076ff;
+    color: white;
+}
+
+tr {
+    text-align: center;
+    font-weight: 600;
+}
+
+td:first-child,
+th:first-child {
+    border-radius: 10px 0 0 10px;
+}
+td:last-child,
+th:last-child {
+    border-radius: 0 10px 10px 0;
+}
+
+.userAction {
+    display: flex;
+    gap: 10px;
+}
+
+.edit {
+    color: #854cff;
+}
+
+.delete {
+    fill: red;
+}
+
+.share {
+    fill: #60b84b;
+}
+
+.analysis {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.tablewrapper {
+  overflow-y: auto; /* Enable vertical scrollbar */
+  scrollbar-width: thin; /* "auto" | "thin" | "none" */
+  scrollbar-color: #5076ff transparent; /* thumb | track */
+  max-height:25rem; /* Set a max height to see the scrollbar */
+
+}
+
+/* Track */
+.tablewrapper::-webkit-scrollbar-track {
+  background: transparent; /* Change the background color */
+}
+
+/* Handle */
+.tablewrapper::-webkit-scrollbar-thumb {
+  background: #888; /* Change the color of the scrollbar thumb */
+  border-radius: 18px; /* Roundness of the scrollbar thumb */
+}
+
+/* Handle on hover */
+.tablewrapper::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Change the color of the scrollbar thumb on hover */
 }

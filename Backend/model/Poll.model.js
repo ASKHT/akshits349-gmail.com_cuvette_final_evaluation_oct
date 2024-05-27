@@ -6,7 +6,7 @@ const optionSchema = new Schema({
   },
   image: {
     type: String,
-    validate: [validator.isURL, 'Enter a valid URL']
+    
   },
   votes: {
     type: Number,
@@ -23,7 +23,7 @@ const pollQuestionSchema = new Schema(
   },
   optionsType: {
     type: String,
-    enum: ['text', 'image', 'textAndImage'],
+    enum: ['text', 'url', 'textandurl'],
     required: true
   },
   options: {
@@ -60,7 +60,7 @@ const pollSchema = new Schema(
         impression: {
             type: Number,
         },
-        user: {
+         userId: {
             type: Types.ObjectId,
             ref: "User",
         },

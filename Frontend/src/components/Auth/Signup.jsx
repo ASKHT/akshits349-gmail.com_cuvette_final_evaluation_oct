@@ -4,7 +4,7 @@ import styles from "./styles/Common.module.css";
 import { useState } from "react";
 import * as Yup from "yup";
 import { register } from "../../api/Auth.api";
-const Signup = () => {
+const Signup = ({ setLogin }) => {
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -45,8 +45,15 @@ const Signup = () => {
     e.preventDefault();
     try {
       await validationSchema.validate(userInfo, { abortEarly: false });
-      await register(userInfo);
-      navigate("/");
+      const data = await register(userInfo);
+      if (data?.token) {
+        navigate("/auth");
+        setLogin(true);
+        // toast.success("you have sucessfully registered please login now!");
+      } else {
+        return;
+      }
+      // navigate("/");
     } catch (validationErrors) {
       const formattedErrors = {};
       validationErrors.inner.forEach((error) => {

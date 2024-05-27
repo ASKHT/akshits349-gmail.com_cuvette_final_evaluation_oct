@@ -6,7 +6,6 @@ const optionSchema = new Schema({
     },
     image: {
         type: String,
-        
     },
 });
 
@@ -17,7 +16,7 @@ const questionSchema = new Schema({
     },
     optionsType: {
         type: String,
-        enum: ["text", "image", "textandimage"],
+        enum: ["text", "url", "textandurl"],
         required: [true, "Please provide the option type"],
     },
     options: {

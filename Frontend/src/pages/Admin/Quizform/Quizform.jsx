@@ -9,7 +9,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import Usercontext from "../../../Context/Usercontext.js";
 import { createquiz } from "../../../api/Quiz.api.js";
 const Quizform = ({ setShowmodal }) => {
-  const { quiztype, inputdata, setInputdata, setQuiztype } =
+  const { quiztype, inputdata, setInputdata, setQuiztype, setQuizcreated } =
     useContext(Usercontext);
   const [activequestion, setActivequestion] = useState(0);
   const [formErrors, setFormErrors] = useState({});
@@ -71,7 +71,6 @@ const Quizform = ({ setShowmodal }) => {
   };
 
   const gotoactiveclass = (index) => {
-    // console.log(index);
     setActivequestion(index);
   };
 
@@ -180,12 +179,13 @@ const Quizform = ({ setShowmodal }) => {
         !question.timer
       ) {
         toast.error(
-          "All fields for each question must be filled according to the question type."
+          "please fill all fields for each question with answer select also"
         );
         return;
       }
     }
     await createquiz(data);
+    setQuizcreated(true);
     setShowmodal("");
     setQuiztype("");
     setInputdata("");

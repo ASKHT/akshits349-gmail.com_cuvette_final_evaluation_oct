@@ -38,8 +38,12 @@ const Login = () => {
     e.preventDefault();
     try {
       await validationSchema.validate(userInfo, { abortEarly: false });
-      await loginUser(userInfo);
-      navigate("/");
+      const data = await loginUser(userInfo);
+      if (data?.token) {
+        navigate("/");
+      } else {
+        return;
+      }
     } catch (validationErrors) {
       const formattedErrors = {};
       validationErrors.inner.forEach((error) => {
