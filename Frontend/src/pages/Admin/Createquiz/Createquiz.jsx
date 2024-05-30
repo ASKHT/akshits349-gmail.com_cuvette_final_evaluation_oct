@@ -7,9 +7,15 @@ import Quizform from "../Quizform/Quizform.jsx";
 import Pollform from "../Pollform/Pollform.jsx";
 import { useContext } from "react";
 import Usercontext from "../../../Context/Usercontext.js";
-const Createquiz = ({ setShowmodal, modal }) => {
-  const { quiztype, setQuiztype, inputdata, setInputdata } =
-    useContext(Usercontext);
+const Createquiz = () => {
+  const {
+    quiztype,
+    setQuiztype,
+    inputdata,
+    setInputdata,
+    modal,
+    setShowmodal,
+  } = useContext(Usercontext);
   const takedata = (e) => {
     setInputdata(e.target.value);
   };
@@ -38,6 +44,7 @@ const Createquiz = ({ setShowmodal, modal }) => {
     setShowmodal("");
     setQuiztype("");
     setInputdata("");
+    setEditItem("");
   };
   return (
     <>

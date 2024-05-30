@@ -1,19 +1,35 @@
+import React, { useState, useEffect, useContext } from "react";
 import styles from "./Analytics.module.css";
 import { FiEdit } from "react-icons/fi";
 import { RiDeleteBin6Fill } from "react-icons/ri";
 import { FaShareNodes } from "react-icons/fa6";
 import { userpollandquiz } from "../../../api/User.api";
-import { useEffect, useState, useContext } from "react";
 import Usercontext from "../../../Context/Usercontext";
+import Quizform from "../Quizform/Quizform";
+import Pollform from "../Pollform/Pollform";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+// import { BASE_URL } from "../../../constants/constant";
+
+import DeleteModal from "../../deletemodal/DeleteModal";
 const Analytics = () => {
   const [data, setData] = useState([]);
-  const { quizcreated, setQuizCreated } = useContext(Usercontext);
+  const navigate = useNavigate();
+  const {
+    quizcreated,
+    modal,
+    setShowmodal,
+    editItem,
+    setEditItem,
+    isedit,
+    setisEdit,
+  } = useContext(Usercontext);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await userpollandquiz();
         setData(data);
-        // setQuizCreated(true);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -21,15 +37,39 @@ const Analytics = () => {
 
     fetchData();
   }, [quizcreated]);
+
   const formatDate = (createdAt) => {
-    const newformat = new Date(createdAt).toLocaleDateString("en-IN", {
+    return new Date(createdAt).toLocaleDateString("en-IN", {
       year: "numeric",
       day: "numeric",
       month: "short",
     });
-
-    return newformat;
   };
+  const [showDeleteModal, setShowDeleteModal] = useState({
+    type: "",
+    id: "",
+    status: false,
+  });
+
+  const handleEdit = (item) => {
+    if (item.category === "Q&A") {
+      setShowmodal("Q&A");
+      setEditItem(item);
+      setisEdit("edit");
+      // console.log(editItem);
+    } else if (item.category === "poll") {
+      setShowmodal("Poll");
+      setEditItem(item);
+      setisEdit("edit");
+      // console.log(item);
+    }
+  };
+  const copylinkid = (id) => {
+    // navigate(`/quiz/${id}`);
+    navigator.clipboard.writeText(`http://localhost:5173/quiz/${id}`);
+    toast.success("link copied");
+  };
+
   return (
     <div className={styles.analyticsContainer}>
       <h1 className={styles.heading}>Quiz Analysis</h1>
@@ -61,11 +101,26 @@ const Analytics = () => {
                 </td>
                 <td className="">{item.title}</td>
                 <td className="">{formatDate(item.createdAt)}</td>
-                <td className="">0</td>
+                <td className="">{item.impression}</td>
                 <td className={styles.userAction}>
-                  <FiEdit className={styles.edit} />
-                  <RiDeleteBin6Fill className={styles.delete} />
-                  <FaShareNodes className={styles.share} />
+                  <FiEdit
+                    className={styles.edit}
+                    onClick={() => handleEdit(item)}
+                  />
+                  <RiDeleteBin6Fill
+                    className={styles.delete}
+                    onClick={() =>
+                      setShowDeleteModal({
+                        status: true,
+                        type: item.type,
+                        id: item._id,
+                      })
+                    }
+                  />
+                  <FaShareNodes
+                    className={styles.share}
+                    onClick={() => copylinkid(item._id)}
+                  />
                 </td>
                 <td className={styles.analysis}>Question with Analysis</td>
               </tr>
@@ -73,7 +128,16 @@ const Analytics = () => {
           </tbody>
         </table>
       </div>
+      {modal === "Q&A" && <Quizform prefilldata={editItem} />}
+      {modal === "Poll" && <Pollform prefilldata={editItem} />}
+      {showDeleteModal.status && (
+        <DeleteModal
+          showDeleteModal={showDeleteModal}
+          setShowDeleteModal={setShowDeleteModal}
+        />
+      )}
     </div>
   );
 };
+
 export default Analytics;

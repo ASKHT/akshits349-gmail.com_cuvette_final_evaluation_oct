@@ -1,15 +1,26 @@
 import React, { act } from "react";
 import Modal from "../../../components/Modal/Modal";
 import styles from "./Pollform.module.css";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Usercontext from "../../../Context/Usercontext.js";
 import { toast } from "react-hot-toast";
 import { createpoll } from "../../../api/Poll.api.js";
-const Pollform = ({ setShowmodal }) => {
-  const { quiztype, inputdata, setInputdata, setQuiztype } =
-    useContext(Usercontext);
+const Pollform = () => {
+  const {
+    quiztype,
+    inputdata,
+    setInputdata,
+    setQuiztype,
+    setQuizcreated,
+    setShowmodal,
+    modal,
+    editItem,
+    setEditItem,
+    isedit,
+    setisEdit,
+  } = useContext(Usercontext);
   const [activequestion, setActivequestion] = useState(0);
   const [polldata, setPolldata] = useState({
     category: quiztype,
@@ -119,7 +130,13 @@ const Pollform = ({ setShowmodal }) => {
       newArr.questions[activequestion] = {
         ...newArr.questions[activequestion],
         options: newArr.questions[activequestion].options.map((option) => {
-          if (option.id === optionId) {
+          if (isedit === "edit" && option._id === optionId) {
+            console.log(option._id, optionId);
+            return {
+              ...option,
+              [e.target.name]: e.target.value,
+            };
+          } else if (option.id === optionId) {
             return {
               ...option,
               [e.target.name]: e.target.value,
@@ -131,6 +148,7 @@ const Pollform = ({ setShowmodal }) => {
       return newArr;
     });
   };
+
   const handleSubmit = async () => {
     if (!polldata.category || !polldata.title) {
       toast.error("Category and title are required.");
@@ -157,10 +175,19 @@ const Pollform = ({ setShowmodal }) => {
       }
     }
     await createpoll(polldata);
+    setQuizcreated(true);
     setShowmodal("");
     setQuiztype("");
     setInputdata("");
   };
+  const fetchdata = () => {
+    setPolldata(editItem);
+  };
+  useEffect(() => {
+    {
+      isedit === "edit" ? fetchdata() : "";
+    }
+  }, [editItem]);
   const cancelpoll = () => {
     setShowmodal("");
     setQuiztype("");
@@ -196,8 +223,11 @@ const Pollform = ({ setShowmodal }) => {
                 )}
               </div>
             ))}
-            {polldata?.questions?.length < 5 ? (
-              <div onClick={handleaddquestions} style={{ cursor: "pointer" }}>
+            {isedit !== "edit" && polldata?.questions?.length < 5 ? (
+              <div
+                onClick={handleaddquestions}
+                style={{ cursor: "pointer", fontSize: "45px", color: "gray" }}
+              >
                 +
               </div>
             ) : (
@@ -312,7 +342,10 @@ const Pollform = ({ setShowmodal }) => {
                                   name="text"
                                   value={item.text}
                                   onChange={(e) =>
-                                    handleInputChange(e, item?.id)
+                                    handleInputChange(
+                                      e,
+                                      isedit === "edit" ? item?._id : item.id
+                                    )
                                   }
                                 />
                                 {index > 1 && (
@@ -341,7 +374,10 @@ const Pollform = ({ setShowmodal }) => {
                                   placeholder="imageurl"
                                   value={item.image}
                                   onChange={(e) =>
-                                    handleInputChange(e, item?.id)
+                                    handleInputChange(
+                                      e,
+                                      isedit === "edit" ? item?._id : item.id
+                                    )
                                   }
                                 />
                                 {index > 1 && (
@@ -379,7 +415,12 @@ const Pollform = ({ setShowmodal }) => {
                                       placeholder="Text"
                                       value={item.text}
                                       onChange={(e) =>
-                                        handleInputChange(e, item?.id)
+                                        handleInputChange(
+                                          e,
+                                          isedit === "edit"
+                                            ? item?._id
+                                            : item.id
+                                        )
                                       }
                                     />
                                     <input
@@ -387,11 +428,16 @@ const Pollform = ({ setShowmodal }) => {
                                       placeholder="imageurl"
                                       value={item.image}
                                       onChange={(e) =>
-                                        handleInputChange(e, item?.id)
+                                        handleInputChange(
+                                          e,
+                                          isedit === "edit"
+                                            ? item?._id
+                                            : item.id
+                                        )
                                       }
                                     />
                                   </div>
-                                  {index > 1 && (
+                                  {isedit !== "edit" && index > 1 && (
                                     <RiDeleteBin5Line
                                       style={{
                                         fontSize: "1.5rem",
@@ -411,7 +457,8 @@ const Pollform = ({ setShowmodal }) => {
                       </div>
                     )
                   )}
-                {polldata?.questions[activequestion]?.options?.length < 4 ? (
+                {isedit !== "edit" &&
+                polldata?.questions[activequestion]?.options?.length < 4 ? (
                   <button
                     className={styles.addoptionbutton}
                     onClick={handleaddoptions}
@@ -429,9 +476,15 @@ const Pollform = ({ setShowmodal }) => {
           <button className={styles.actionbutton1} onClick={cancelpoll}>
             Cancel
           </button>
-          <button className={styles.actionbutton2} onClick={handleSubmit}>
-            Create Quiz
-          </button>
+          {isedit !== "edit" ? (
+            <button className={styles.actionbutton2} onClick={handleSubmit}>
+              Create Quiz
+            </button>
+          ) : (
+            <button className={styles.actionbutton2} onClick={handleSubmit}>
+              Update Quiz
+            </button>
+          )}
         </div>
       </div>
     </Modal>

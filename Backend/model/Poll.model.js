@@ -59,6 +59,7 @@ const pollSchema = new Schema(
         },
         impression: {
             type: Number,
+            default:0
         },
          userId: {
             type: Types.ObjectId,

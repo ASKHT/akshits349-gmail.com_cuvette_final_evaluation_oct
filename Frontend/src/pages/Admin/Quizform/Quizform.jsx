@@ -1,4 +1,4 @@
-import React, { act } from "react";
+import React, { act, useEffect } from "react";
 import Modal from "../../../components/Modal/Modal";
 import styles from "./Quizform.module.css";
 import { useState, useContext } from "react";
@@ -8,11 +8,24 @@ import { toast } from "react-hot-toast";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Usercontext from "../../../Context/Usercontext.js";
 import { createquiz } from "../../../api/Quiz.api.js";
-const Quizform = ({ setShowmodal }) => {
-  const { quiztype, inputdata, setInputdata, setQuiztype, setQuizcreated } =
-    useContext(Usercontext);
+const Quizform = () => {
+  // console.log(prefilldata?.category);
+  const {
+    quiztype,
+    inputdata,
+    setInputdata,
+    setQuiztype,
+    setQuizcreated,
+    setShowmodal,
+    modal,
+    editItem,
+    setEditItem,
+    isedit,
+    setisEdit,
+  } = useContext(Usercontext);
   const [activequestion, setActivequestion] = useState(0);
   const [formErrors, setFormErrors] = useState({});
+
   const [data, setData] = useState({
     category: quiztype,
     title: inputdata,
@@ -30,6 +43,7 @@ const Quizform = ({ setShowmodal }) => {
       },
     ],
   });
+  // console.log(prefilldata);
   const handlequestion = (e) => {
     setData((prevArr) => {
       const newArr = { ...prevArr }; // Create a copy of the array
@@ -40,7 +54,7 @@ const Quizform = ({ setShowmodal }) => {
       return newArr;
     });
   };
-  // console.log(data);
+  console.log(data);
   const deltequestion = (e, id, index) => {
     e.stopPropagation();
     setData((prevState) => ({
@@ -124,7 +138,13 @@ const Quizform = ({ setShowmodal }) => {
       newArr.questions[activequestion] = {
         ...newArr.questions[activequestion],
         options: newArr.questions[activequestion].options.map((option) => {
-          if (option.id === optionId) {
+          if (isedit === "edit" && option._id === optionId) {
+            console.log(option._id, optionId);
+            return {
+              ...option,
+              [e.target.name]: e.target.value,
+            };
+          } else if (option.id === optionId) {
             return {
               ...option,
               [e.target.name]: e.target.value,
@@ -136,6 +156,7 @@ const Quizform = ({ setShowmodal }) => {
       return newArr;
     });
   };
+
   const handletimer = (timerValue) => {
     setData((prevArr) => {
       const newArr = { ...prevArr }; // Create a copy of the array
@@ -190,11 +211,21 @@ const Quizform = ({ setShowmodal }) => {
     setQuiztype("");
     setInputdata("");
   };
+  const fetchdata = () => {
+    setData(editItem);
+  };
+  useEffect(() => {
+    {
+      isedit === "edit" ? fetchdata() : "";
+    }
+  }, [editItem]);
+
   const cancelpoll = () => {
     setShowmodal("");
     setQuiztype("");
     setInputdata("");
   };
+
   return (
     <Modal
       setShowmodal={setShowmodal}
@@ -213,7 +244,7 @@ const Quizform = ({ setShowmodal }) => {
                 onClick={() => gotoactiveclass(index)}
               >
                 <span>{index + 1}</span>
-                {index + 1 > 1 ? (
+                {isedit == !"edit" && index + 1 > 1 ? (
                   <div
                     className={styles.crossbutton}
                     onClick={(e) => deltequestion(e, item.id, index - 1)}
@@ -225,7 +256,7 @@ const Quizform = ({ setShowmodal }) => {
                 )}
               </div>
             ))}
-            {data?.questions?.length < 5 ? (
+            {isedit == !"edit" && data?.questions?.length < 5 ? (
               <div
                 onClick={handleaddquestions}
                 style={{ cursor: "pointer", fontSize: "45px", color: "gray" }}
@@ -248,7 +279,7 @@ const Quizform = ({ setShowmodal }) => {
                 name="question"
                 className={styles.input}
                 placeholder="Quiz Questions"
-                value={data?.questions[activequestion].question}
+                value={data?.questions[activequestion].question || ""}
                 onChange={(e) => handlequestion(e)}
               />
             </div>
@@ -345,7 +376,10 @@ const Quizform = ({ setShowmodal }) => {
                                   name="text"
                                   value={item.text}
                                   onChange={(e) =>
-                                    handleInputChange(e, item?.id)
+                                    handleInputChange(
+                                      e,
+                                      isedit === "edit" ? item?._id : item.id
+                                    )
                                   }
                                   className={`${
                                     data?.questions[activequestion]?.answer ===
@@ -355,7 +389,7 @@ const Quizform = ({ setShowmodal }) => {
                                   }`}
                                 />
 
-                                {index > 1 && (
+                                {isedit == !"edit" && index > 1 && (
                                   <RiDeleteBin5Line
                                     style={{
                                       fontSize: "1.5rem",
@@ -390,7 +424,8 @@ const Quizform = ({ setShowmodal }) => {
                                       : ""
                                   }`}
                                 />
-                                {index > 1 && (
+
+                                {isedit == !"edit" && index > 1 && (
                                   <RiDeleteBin5Line
                                     style={{
                                       fontSize: "1.5rem",
@@ -449,7 +484,7 @@ const Quizform = ({ setShowmodal }) => {
                                       }`}
                                     />
                                   </div>
-                                  {index > 1 && (
+                                  {isedit == !"edit" && index > 1 && (
                                     <RiDeleteBin5Line
                                       style={{
                                         fontSize: "1.5rem",
@@ -469,7 +504,8 @@ const Quizform = ({ setShowmodal }) => {
                       </div>
                     )
                   )}
-                {data?.questions[activequestion]?.options?.length < 4 ? (
+                {isedit == !"edit" &&
+                data?.questions[activequestion]?.options?.length < 4 ? (
                   <button
                     className={styles.addoptionbutton}
                     onClick={handleaddoptions}
@@ -522,9 +558,13 @@ const Quizform = ({ setShowmodal }) => {
           <button className={styles.actionbutton1} onClick={cancelpoll}>
             Cancel
           </button>
-          <button className={styles.actionbutton2} onClick={handleSubmit}>
-            Create quiz
-          </button>
+          {isedit == !"edit" ? (
+            <button className={styles.actionbutton2} onClick={handleSubmit}>
+              Create quiz
+            </button>
+          ) : (
+            <button className={styles.actionbutton2}>updateQuiz</button>
+          )}
         </div>
       </div>
     </Modal>

@@ -6,6 +6,10 @@ const Usercontextprovider = ({ children }) => {
   const [inputdata, setInputdata] = useState("");
   const [optiontype, setOptiontype] = useState("text");
   const [quizcreated, setQuizcreated] = useState(false);
+  const [updatequiz, setUpdatequiz] = useState("");
+  const [modal, setShowmodal] = useState("");
+  const [editItem, setEditItem] = useState("");
+  const [isedit, setisEdit] = useState("");
   return (
     <Usercontext.Provider
       value={{
@@ -17,6 +21,14 @@ const Usercontextprovider = ({ children }) => {
         setOptiontype,
         quizcreated,
         setQuizcreated,
+        modal,
+        setShowmodal,
+        updatequiz,
+        setUpdatequiz,
+        editItem,
+        setEditItem,
+        isedit,
+        setisEdit,
       }}
     >
       {children}

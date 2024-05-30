@@ -5,12 +5,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.6);
     height: 100vh;
     width: 100vw;
     z-index: 20;
-    font-family: "DM Sans";
-    /* opacity: 1; */
 }
 
 .modal {
@@ -25,11 +23,3 @@
     box-shadow: 0px 4px 30px 0px #ffffff40;
 }
 
-.close {
-    align-self: flex-end;
-     color:red;
-    font-size: 2rem;
-    cursor: pointer;
-    border: 2px solid red;
-    border-radius: 50%;
-}

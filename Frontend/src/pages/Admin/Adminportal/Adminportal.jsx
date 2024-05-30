@@ -8,14 +8,23 @@ import Pollform from "../Pollform/Pollform";
 import UseAuth from "../../../hooks/useAuth";
 import Usercontext from "../../../Context/Usercontext";
 const Adminportal = () => {
-  const [modal, setShowmodal] = useState("");
-  const { quizcreated, setQuizcreated } = useContext(Usercontext);
+  // const [modal, setShowmodal] = useState("");
+
+  const {
+    quizcreated,
+    setQuizcreated,
+    modal,
+    setShowmodal,
+    isedit,
+    setisEdit,
+  } = useContext(Usercontext);
   const location = useLocation();
   // console.log(location.pathname);
   const isLoggedIn = UseAuth();
   const useraction = () => {
     setQuizcreated(false);
     setShowmodal("quiz");
+    setisEdit("");
   };
   return (
     isLoggedIn && (

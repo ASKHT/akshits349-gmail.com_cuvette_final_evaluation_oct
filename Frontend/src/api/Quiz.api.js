@@ -17,3 +17,21 @@ export const createquiz = async ({category,questions,title}) => {
     toast.error(error.response.data.message)
   }
 };
+export const deleteQuizApi = async (quizid) => {
+    try {
+        const token = JSON.parse(localStorage.getItem("token"));
+        console.log(quizid)
+        const { data } = await axios.delete(`${BASE_URL}/quiz/${quizid}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        toast.success(data.message);
+    } catch (error) {
+        if (!error.response) {
+             toast.error(error.response.data.message);
+            throw error;
+        }
+       
+    }
+};

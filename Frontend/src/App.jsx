@@ -6,7 +6,8 @@ import Adminportal from "./pages/Admin/Adminportal/Adminportal.jsx";
 import Dashboard from "./pages/Admin/Dashboard/Dashboard.jsx";
 import Analytics from "./pages/Admin/Analytics/Analytics.jsx";
 import Quizanalysis from "./components/Quizanalysis/Quizanalysis.jsx";
-import Quiz from "./pages/Quiz/Quiz.jsx";
+// import Quiz from "./pages/Quiz/Quiz.jsx";
+import Quizattempt from "./pages/Quizattempt/Quizattempt.jsx";
 const App = () => {
   return (
     <>
@@ -18,7 +19,7 @@ const App = () => {
             <Route path="analytics" element={<Analytics />} />
             <Route path="/analysis/:id" element={<Quizanalysis />} />
           </Route>
-          <Route path="/quiz/:id" element={<Quiz />} />
+          <Route path="/quiz/:id" element={<Quizattempt />} />
         </Routes>
       </BrowserRouter>
       <Toaster position="top-center" />

@@ -17,5 +17,51 @@ export const createpoll = async ({category,questions,title}) => {
     return data;
   } catch (error) {
     toast.error(error.response.data.message)
+      throw error;
   }
+};
+
+
+export const getPollApi = async (pollId) => {
+    try {
+        // console.log(pollId)
+        const { data } = await axios.get(`${BASE_URL}/poll/${pollId}`);
+        return data;
+    } catch (error) {
+        if (!error.response) {
+            // toast.error(error.message);
+            toast.error(error.response.data.message);
+            throw error;
+        }
+    }
+};
+export const deletePollApi = async (quizid) => {
+    try {
+        const token = JSON.parse(localStorage.getItem("token"));
+        const { data } = await axios.delete(`${BASE_URL}/poll/${quizid}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        toast.success(data.message);
+    } catch (error) {
+        if (!error.response) {
+             toast.error(error.response.data.message);
+            throw error;
+        }
+       
+    }
+};
+
+export const countPollApi = async (pollId, questionId, optionId) => {
+    try {
+        const { data } = await axios.put(`${BASE_URL}/poll/userAttempt`, { pollId, questionId, optionId });
+        return data;
+    } catch (error) {
+        if (!error.response) {
+           toast.error(error.response.data.message);
+            throw error;
+        }
+      
+    }
 };

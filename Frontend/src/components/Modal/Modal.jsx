@@ -4,7 +4,8 @@ import { IoClose } from "react-icons/io5";
 import { useEffect } from "react";
 import { useContext } from "react";
 import Usercontext from "../../Context/Usercontext";
-const Modal = ({ children, setShowmodal, setQuiztype, setInputdata }) => {
+const Modal = ({ children, setQuiztype, setInputdata }) => {
+  const { setShowmodal, updatequiz } = useContext(Usercontext);
   const resetquiz = () => {
     setShowmodal("");
     setQuiztype("");

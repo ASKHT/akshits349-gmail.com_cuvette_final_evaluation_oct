@@ -1,7 +1,7 @@
 import asyncWrapper from "../middleware/asynchandler.middleware.js"
 import Poll from "../model/Poll.model.js"
 import ApiError from "../utils/Apierror.utils.js";
-
+import Othererrors from "../utils/othererror.utils.js"
 export const createpoll = asyncWrapper(async (req, res, next) => {
     try {
         const { category, questions,title} = req.body;
@@ -16,14 +16,6 @@ export const createpoll = asyncWrapper(async (req, res, next) => {
     }
 });
 
-export const getpoll = asyncWrapper(async (req, res, next) => {
-    const { id } = req.params;
-    const poll = await Poll.findById(id);
-    if (!quiz) {
-        return next(new ApiError('Poll does not exist', 404));
-    }
-    res.status(200).json({ message: "successfully fetched", poll });
-});
 
 export const getallpoll = asyncWrapper(async (req, res, next) => {
     const userId = req.userId;
@@ -35,9 +27,10 @@ export const getallpoll = asyncWrapper(async (req, res, next) => {
 });
 
 export const deletepoll = asyncWrapper(async (req, res, next) => {
-    const { id } = req.params;
-      await Poll.find({ id: id, userId: req.userId });
-    if (!quiz) {
+    const { quizid } = req.params;
+      const poll=await Poll.findOneAndDelete({ _id: quizid, userId: req.user.id});
+    //   console.log(poll)
+    if (!poll) {
         return next(
             new ApiError(
                 "No Poll found with this id, or you don't have permission to delete it.",
@@ -45,5 +38,29 @@ export const deletepoll = asyncWrapper(async (req, res, next) => {
             )
         );
     }
-    res.status(204).json({ status: 'success' });
+    // await poll.save()
+    res.status(200).json({ status: 'success' });
+});
+export const getPoll = asyncWrapper(async (req, res, next) => {
+    const { pollId } = req.params;
+    console.log(pollId)
+    const poll = await Poll.findOne({ _id: pollId });
+    console.log(poll)
+    if (!poll) {
+        throw next(new Othererrors(400, "poll does not exist"));
+    }
+    poll.impression+=1;
+    await poll.save();
+    res.status(200).json({ poll });
+});
+export const countPoll = asyncWrapper(async (req, res, next) => {
+    const { pollId, questionId, optionId } = req.body;
+
+    const poll = await Poll.findOne({ _id: pollId });
+    const question = poll.questions.find((item) => item._id == questionId);
+    // console.log(question);
+    const option = question.options.find((item) => item._id == optionId);
+    option.votes += 1;
+    await poll.save();
+    res.status(200).json({ message: "success" });
 });
