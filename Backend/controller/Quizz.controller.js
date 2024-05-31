@@ -1,9 +1,10 @@
 import asyncWrapper from "../middleware/asynchandler.middleware.js"
 import Quizz from "../model/Quizz.model.js"
 import ApiError from "../utils/Apierror.utils.js";
+import Othererrors from "../utils/othererror.utils.js"
 export const createquiz =asyncWrapper( async(req,res,next)=>{
         const {title,questions,category} = req.body;
-        console.log(title,questions,category)
+        // console.log(title,questions,category)
         if(!title||!questions){
             return res.status(400).json({message:"please fill all fields"})
         }
@@ -11,6 +12,32 @@ export const createquiz =asyncWrapper( async(req,res,next)=>{
         const quiz=await Quizz.create({title,category,questions,userId})
         
         res.status(200).json({ message: 'Quiz created successfully',quiz });
+})
+
+export const updatequiz =asyncWrapper( async(req,res,next)=>{
+  const {category, questions,title } = req.body;
+  const  id  = req.params.id;
+  console.log(id)
+//   console.log(questions);
+
+  const quiz = await Quizz.findOneAndUpdate(
+    {
+      _id: id,
+      userId: req.user.id
+    },
+    { category, questions,title},
+    { new: true }
+  );
+       if (!quiz) {
+    return next(
+      new ApiError("quiz not found, or you dont't have permission to edit it",404)
+    );
+  }
+  res.status(200).json({
+    status: 'success',
+    message: "data updated sucessfully",
+    quiz
+  });
 })
  
 
@@ -51,20 +78,5 @@ export const getquiz = asyncWrapper(async (req, res, next) => {
     // console.log(poll)
     res.status(200).json({ quiz });
 });
-// export const countquiz = asyncWrapper(async (req, res, next) => {
-//     const { pollId, questionId, optionId } = req.body;
 
-//     const poll = await Quizz.findOne({ _id: pollId });
-//     const question = poll.questions.find((item) => item._id == questionId);
-//     // console.log(question);
-//     const option = question.options.find((item) => item._id == optionId);
-//     option.votes += 1;
-//     await poll.save();
-//     res.status(200).json({ message: "success" });
-// });
-// export const updatequiz=asyncWrapper(async (req,res,next)=>{
-//     const {timer,title,questions}=req.body;
-//     const {id}=req.params;
-
-// })
 

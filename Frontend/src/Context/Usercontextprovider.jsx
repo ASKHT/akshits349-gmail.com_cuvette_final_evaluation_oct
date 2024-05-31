@@ -11,7 +11,7 @@ const Usercontextprovider = ({ children }) => {
   const [editItem, setEditItem] = useState("");
   const [isedit, setisEdit] = useState("");
   const [deletequiz, setDeletequiz] = useState(true);
-  const [shareid, setShareid] = useState("");
+  const [shareid, setShareid] = useState();
   return (
     <Usercontext.Provider
       value={{

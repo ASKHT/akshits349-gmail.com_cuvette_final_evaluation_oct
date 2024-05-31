@@ -1,0 +1,62 @@
+.dashboardContainer {
+    width:100%;
+    /* padding: 4rem; */
+    padding-left: 4rem;
+    padding-top: 2rem;
+    padding-right: 4rem;
+    overflow-x: hidden;
+    height: 100%;
+    padding-bottom: 2rem;
+}
+
+.statsContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 4rem;
+}
+
+.total {
+    border-radius: 10px;
+    padding: 1rem;
+    text-align: center;
+    background-color: white;
+    font-size: 30px;
+    font-weight: 600;
+    width: 30%;
+}
+
+.totalQuiz {
+    color: #ff5d01;
+}
+
+.totalQuestion {
+    color: #60b84b;
+}
+
+.totalImpression {
+    color: #5076ff;
+}
+
+.totalNumber {
+    font-size: 60px;
+}
+
+.heading {
+    color: #474444;
+    font-size: 2rem;
+    margin: 20px 0;
+}
+
+.trendingContainer {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: start;
+    width:70rem;
+    height: 20rem;
+     /* padding-bottom: 2rem; */
+    overflow-y: scroll;
+    /* overflow-y: auto;
+    height: 400px; */
+}

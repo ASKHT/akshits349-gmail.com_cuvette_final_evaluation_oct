@@ -1,0 +1,32 @@
+.trendingCard {
+    background-color: white;
+    border-radius: 5px;
+    padding: 8px;
+}
+
+.trendingTop {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.quizName {
+    color: #474444;
+    font-weight: 600;
+    font-size: 24px;
+}
+
+.quizImpression {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #ff5d01;
+}
+
+.eyes {
+    fill: #ff5d01;
+}
+
+.trendingBottom {
+    color: #60b84b;
+}

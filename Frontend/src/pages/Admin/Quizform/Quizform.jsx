@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { toast } from "react-hot-toast";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Usercontext from "../../../Context/Usercontext.js";
-import { createquiz } from "../../../api/Quiz.api.js";
+import { createquiz, updatequiz } from "../../../api/Quiz.api.js";
 const Quizform = () => {
   // console.log(prefilldata?.category);
   const {
@@ -22,6 +22,8 @@ const Quizform = () => {
     setEditItem,
     isedit,
     setisEdit,
+    shareid,
+    setShareid,
   } = useContext(Usercontext);
   const [activequestion, setActivequestion] = useState(0);
   const [formErrors, setFormErrors] = useState({});
@@ -54,7 +56,7 @@ const Quizform = () => {
       return newArr;
     });
   };
-  console.log(data);
+  // console.log(data);
   const deltequestion = (e, id, index) => {
     e.stopPropagation();
     setData((prevState) => ({
@@ -205,7 +207,42 @@ const Quizform = () => {
         return;
       }
     }
-    await createquiz(data);
+    const data2 = await createquiz(data);
+    setQuizcreated(true);
+    setShareid(data2.quiz._id);
+    setShowmodal("share");
+    setQuiztype("");
+    setInputdata("");
+  };
+
+  const handleupdate = async () => {
+    if (!data.category || !data.title) {
+      toast.error("Category and title are required.");
+      return;
+    }
+
+    for (const question of data.questions) {
+      if (
+        !question.question ||
+        !question.optionsType ||
+        (question.optionsType === "text" &&
+          question.options.some((option) => option.text === "")) ||
+        (question.optionsType === "url" &&
+          question.options.some((option) => option.image === "")) ||
+        (question.optionsType === "textandurl" &&
+          question.options.some(
+            (option) => option.text === "" || option.image === ""
+          )) ||
+        !question.answer ||
+        !question.timer
+      ) {
+        toast.error(
+          "please fill all fields for each question with answer select also"
+        );
+        return;
+      }
+    }
+    await updatequiz(data);
     setQuizcreated(true);
     setShowmodal("");
     setQuiztype("");
@@ -563,7 +600,9 @@ const Quizform = () => {
               Create quiz
             </button>
           ) : (
-            <button className={styles.actionbutton2}>updateQuiz</button>
+            <button className={styles.actionbutton2} onClick={handleupdate}>
+              updateQuiz
+            </button>
           )}
         </div>
       </div>

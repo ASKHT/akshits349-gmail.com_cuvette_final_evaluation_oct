@@ -36,9 +36,11 @@ const Quizanalysis = () => {
       <h1 className={styles.quizHeading}>Question Analysis</h1>
       <div className={styles.quizExtraDetails}>
         <div className={styles.createdAt}>
-          {formatDate(dataanalysis.createdAt)}
+          Created on: {formatDate(dataanalysis.createdAt)}
         </div>
-        <div className={styles.impressions}>{dataanalysis.impression}</div>
+        <div className={styles.impressions}>
+          Impressions: {dataanalysis.impression}
+        </div>
       </div>
       <div className={styles.questions}>
         {dataanalysis.questions.map((q, i) => (

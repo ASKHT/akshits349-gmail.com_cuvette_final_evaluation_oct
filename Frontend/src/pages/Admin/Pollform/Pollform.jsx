@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Usercontext from "../../../Context/Usercontext.js";
 import { toast } from "react-hot-toast";
-import { createpoll } from "../../../api/Poll.api.js";
+import { createpoll, updatePoll } from "../../../api/Poll.api.js";
 import Sharequizmodal from "../../../components/Sharequiz/Sharequizmodal.jsx";
 const Pollform = () => {
   const {
@@ -152,6 +152,7 @@ const Pollform = () => {
     });
   };
 
+  //create logic
   const handleSubmit = async () => {
     if (!polldata.category || !polldata.title) {
       toast.error("Category and title are required.");
@@ -180,8 +181,42 @@ const Pollform = () => {
     const data = await createpoll(polldata);
     // console.log(data.poll._id);
     setQuizcreated(true);
+    setShowmodal("share");
+    setShareid(data.poll._id);
+    setQuiztype("");
+    setInputdata("");
+  };
+
+  //update logic
+  const handleupdate = async () => {
+    if (!polldata.category || !polldata.title) {
+      toast.error("Category and title are required.");
+      return;
+    }
+
+    for (const question of polldata.questions) {
+      if (
+        !question.question ||
+        !question.optionsType ||
+        (question.optionsType === "text" &&
+          question.options.some((option) => option.text === "")) ||
+        (question.optionsType === "url" &&
+          question.options.some((option) => option.image === "")) ||
+        (question.optionsType === "textandurl" &&
+          question.options.some(
+            (option) => option.text === "" || option.image === ""
+          ))
+      ) {
+        toast.error(
+          "All fields for each question must be filled according to the question type."
+        );
+        return;
+      }
+    }
+    // console.log(polldata);
+    await updatePoll(polldata);
     setShowmodal("");
-    setShareid("share");
+    setQuizcreated(true);
     setQuiztype("");
     setInputdata("");
   };
@@ -487,7 +522,7 @@ const Pollform = () => {
               Create Quiz
             </button>
           ) : (
-            <button className={styles.actionbutton2} onClick={handleSubmit}>
+            <button className={styles.actionbutton2} onClick={handleupdate}>
               Update Quiz
             </button>
           )}

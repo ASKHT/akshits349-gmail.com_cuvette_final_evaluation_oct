@@ -1,0 +1,49 @@
+.wrapper {
+  width: 52rem;
+  height: 20rem;
+  border-radius: 10px;
+  background: #fff;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.charmCross {
+  top: 1rem;
+  right: 1rem;
+  position: absolute;
+}
+
+.headingCongrats {
+  width: 31rem;
+  height: 7rem;
+  font-size: 2.5rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.linkContainer {
+  width: 42rem;
+  height: 3.75rem;
+  border-radius: 10px;
+  background: #ededed;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+.share {
+  width: 17.4375rem;
+  height: 2.884rem;
+  flex-shrink: 0;
+  border-radius: 0.625rem;
+  background: #60b84b;
+  border: none;
+  color: #fff;
+  font-size: 1.4rem;
+}

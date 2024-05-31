@@ -23,7 +23,6 @@ export const getuserquizandpoll = asyncWrapper(async (req, res, next) => {
         );
    }
   const userDocs = [...quizzes, ...polls];
-  
   const data = userDocs.sort((a, b) => {
     const createdAtA = new Date(a.createdAt).getTime();
     const createdAtB = new Date(b.createdAt).getTime();
@@ -57,3 +56,37 @@ else if(polls!==null){
     data
   });
 });
+
+export const getstats=asyncWrapper(async(req,res,next)=>{
+      const userid=req.user.id;
+      const poll=await Poll.find({userId:userid})
+      const quiz=await Quizz.find({userId:userid})
+      const stats={}
+      stats.totalquiz=poll.length+quiz.length;
+      let totalquizquestion=0;
+      let totalpollquestion=0;
+      poll.forEach((q)=>{
+         totalpollquestion+=q.questions.length;
+      })
+      quiz.forEach((q)=>{
+         totalquizquestion+=q.questions.length;
+      })
+     stats.totalQuestions =totalpollquestion+totalquizquestion;
+      let totalPollImpressions = 0;
+  let totlaQuizImpressions = 0;
+
+  quiz.forEach(quiz => {
+    totlaQuizImpressions += quiz.impression;
+  });
+
+  poll.forEach(poll => {
+    totalPollImpressions += poll.impression;
+  });
+
+  stats.totalImpressions = totalPollImpressions + totlaQuizImpressions;
+
+  res.status(200).json({
+    status: 'success',
+    data: { stats }
+  });
+})

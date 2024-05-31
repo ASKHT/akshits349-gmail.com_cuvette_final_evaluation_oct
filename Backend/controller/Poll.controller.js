@@ -64,3 +64,29 @@ export const countPoll = asyncWrapper(async (req, res, next) => {
     await poll.save();
     res.status(200).json({ message: "success" });
 });
+export const updatePoll = asyncWrapper(async (req, res, next) => {
+  const {category, questions,title } = req.body;
+  const  id  = req.params.id;
+  console.log(id)
+  console.log(questions);
+
+  const poll = await Poll.findOneAndUpdate(
+    {
+      _id: id,
+      userId: req.user.id
+    },
+    { category, questions,title},
+    { new: true }
+  );
+
+  if (!poll) {
+    return next(
+      new ApiError("Poll not found, or you dont't have permission to edit it")
+    );
+  }
+  res.status(200).json({
+    status: 'success',
+    message: "data updated sucessfully",
+    poll
+  });
+});

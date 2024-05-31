@@ -156,7 +156,7 @@ const Analytics = () => {
           setShowDeleteModal={setShowDeleteModal}
         />
       )}
-      {shareid === "share" && <Sharequizmodal />}
+      {modal === "share" && <Sharequizmodal />}
     </div>
   );
 };

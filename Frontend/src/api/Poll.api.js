@@ -20,6 +20,23 @@ export const createpoll = async ({category,questions,title}) => {
       throw error;
   }
 };
+export const updatePoll= async ({category,questions,title,_id}) => {
+  try {
+    // console.log(questions)
+    const token = JSON.parse(localStorage.getItem("token"));
+    // console.log(token)
+    const {data} = await axios.put(`${BASE_URL}/poll/updatepoll/${_id}`,{ category,questions,title}, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+     toast.success(data.message);
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message)
+      throw error;
+  }
+};
 
 
 export const getPollApi = async (pollId) => {
