@@ -27,8 +27,9 @@ export const getallpoll = asyncWrapper(async (req, res, next) => {
 });
 
 export const deletepoll = asyncWrapper(async (req, res, next) => {
-    const { quizid } = req.params;
-      const poll=await Poll.findOneAndDelete({ _id: quizid, userId: req.user.id});
+    const { pollId } = req.params;
+    console.log(pollId)
+      const poll=await Poll.findOneAndDelete({ _id: pollId, userId: req.user.id});
     //   console.log(poll)
     if (!poll) {
         return next(
@@ -39,7 +40,7 @@ export const deletepoll = asyncWrapper(async (req, res, next) => {
         );
     }
     // await poll.save()
-    res.status(200).json({ status: 'success' });
+    res.status(200).json({message:"quiz deleted sucessfully", status: 'success' });
 });
 export const getPoll = asyncWrapper(async (req, res, next) => {
     const { pollId } = req.params;
@@ -58,7 +59,6 @@ export const countPoll = asyncWrapper(async (req, res, next) => {
 
     const poll = await Poll.findOne({ _id: pollId });
     const question = poll.questions.find((item) => item._id == questionId);
-    // console.log(question);
     const option = question.options.find((item) => item._id == optionId);
     option.votes += 1;
     await poll.save();

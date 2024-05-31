@@ -35,10 +35,10 @@ export const getPollApi = async (pollId) => {
         }
     }
 };
-export const deletePollApi = async (quizid) => {
+export const deletePollApi = async (pollId) => {
     try {
         const token = JSON.parse(localStorage.getItem("token"));
-        const { data } = await axios.delete(`${BASE_URL}/poll/${quizid}`, {
+        const { data } = await axios.delete(`${BASE_URL}/poll/${pollId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

@@ -2,13 +2,18 @@ import { deletePollApi } from "../../api/Poll.api";
 import { deleteQuizApi } from "../../api/Quiz.api";
 import Modal from "../../components/Modal/Modal";
 import styles from "./Delete.module.css";
-
+import { useContext } from "react";
+import Usercontext from "../../Context/Usercontext";
 const DeleteModal = ({ showDeleteModal, setShowDeleteModal }) => {
+  const { quizcreated, setQuizcreated, deletequiz, setDeletequiz } =
+    useContext(Usercontext);
   const handleDelete = () => {
-    if (showDeleteModal.type === "qa") {
+    if (showDeleteModal.type === "Q&A") {
       deleteQuizApi(showDeleteModal.id);
+      setDeletequiz(false);
     } else {
       deletePollApi(showDeleteModal.id);
+      setDeletequiz(false);
     }
 
     setShowDeleteModal({

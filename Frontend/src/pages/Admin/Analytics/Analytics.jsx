@@ -9,9 +9,9 @@ import Quizform from "../Quizform/Quizform";
 import Pollform from "../Pollform/Pollform";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-// import { BASE_URL } from "../../../constants/constant";
-
 import DeleteModal from "../../deletemodal/DeleteModal";
+// import { questionanalysis } from "../../../api/User.api";
+import Sharequizmodal from "../../../components/Sharequiz/Sharequizmodal";
 const Analytics = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
@@ -23,6 +23,11 @@ const Analytics = () => {
     setEditItem,
     isedit,
     setisEdit,
+    deletequiz,
+    setDeletequiz,
+    setQuizcreated,
+    shareid,
+    setShareid,
   } = useContext(Usercontext);
 
   useEffect(() => {
@@ -36,7 +41,7 @@ const Analytics = () => {
     };
 
     fetchData();
-  }, [quizcreated]);
+  }, [quizcreated, deletequiz]);
 
   const formatDate = (createdAt) => {
     return new Date(createdAt).toLocaleDateString("en-IN", {
@@ -69,7 +74,17 @@ const Analytics = () => {
     navigator.clipboard.writeText(`http://localhost:5173/quiz/${id}`);
     toast.success("link copied");
   };
-
+  const handledelete = ({ status, type, id }) => {
+    setShowDeleteModal({
+      type: type,
+      id: id,
+      status: status,
+    });
+    setDeletequiz(true);
+  };
+  const questionwiseanalysis = async (id) => {
+    navigate(`/analysis/${id}`);
+  };
   return (
     <div className={styles.analyticsContainer}>
       <h1 className={styles.heading}>Quiz Analysis</h1>
@@ -110,9 +125,9 @@ const Analytics = () => {
                   <RiDeleteBin6Fill
                     className={styles.delete}
                     onClick={() =>
-                      setShowDeleteModal({
+                      handledelete({
                         status: true,
-                        type: item.type,
+                        type: item.category,
                         id: item._id,
                       })
                     }
@@ -122,7 +137,12 @@ const Analytics = () => {
                     onClick={() => copylinkid(item._id)}
                   />
                 </td>
-                <td className={styles.analysis}>Question with Analysis</td>
+                <td
+                  className={styles.analysis}
+                  onClick={() => questionwiseanalysis(item._id)}
+                >
+                  Question with Analysis
+                </td>
               </tr>
             ))}
           </tbody>
@@ -136,6 +156,7 @@ const Analytics = () => {
           setShowDeleteModal={setShowDeleteModal}
         />
       )}
+      {shareid === "share" && <Sharequizmodal />}
     </div>
   );
 };

@@ -25,18 +25,17 @@ export const getallquiz = asyncWrapper(async (req, res, next) => {
 
 export const deletequiz = asyncWrapper(async (req, res, next) => {
     const { quizid } = req.params;
-
     const quiz=  await Quizz.findOneAndDelete({ _id: quizid,userId:req.user.id});
     // console.log(quiz)
     console.log(quiz)
-    // if (!quiz) {
-    //     return next(
-    //         new ApiError(
-    //             "No Quizz found with this id, or you don't have permission to delete it.",
-    //             404
-    //         )
-    //     );
-    // }
+    if (!quiz) {
+        return next(
+            new ApiError(
+                "No Quizz found with this id, or you don't have permission to delete it.",
+                404
+            )
+        );
+    }
     // await quiz.save()
     res.status(200).json({ status: 'success' });
 });

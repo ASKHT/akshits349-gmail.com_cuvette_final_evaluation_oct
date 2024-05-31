@@ -15,3 +15,17 @@ export const userpollandquiz = async () => {
     toast.error(error.response.data.message)
   }
 };
+
+export const questionanalysis = async (id) => {
+  try {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const {data} = await axios.get(`${BASE_URL}/user/questionanalysis/${id}`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message)
+  }
+};

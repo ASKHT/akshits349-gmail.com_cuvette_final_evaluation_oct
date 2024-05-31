@@ -10,6 +10,8 @@ const Usercontextprovider = ({ children }) => {
   const [modal, setShowmodal] = useState("");
   const [editItem, setEditItem] = useState("");
   const [isedit, setisEdit] = useState("");
+  const [deletequiz, setDeletequiz] = useState(true);
+  const [shareid, setShareid] = useState("");
   return (
     <Usercontext.Provider
       value={{
@@ -29,6 +31,10 @@ const Usercontextprovider = ({ children }) => {
         setEditItem,
         isedit,
         setisEdit,
+        deletequiz,
+        setDeletequiz,
+        shareid,
+        setShareid,
       }}
     >
       {children}

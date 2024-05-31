@@ -7,6 +7,7 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import Usercontext from "../../../Context/Usercontext.js";
 import { toast } from "react-hot-toast";
 import { createpoll } from "../../../api/Poll.api.js";
+import Sharequizmodal from "../../../components/Sharequiz/Sharequizmodal.jsx";
 const Pollform = () => {
   const {
     quiztype,
@@ -20,6 +21,8 @@ const Pollform = () => {
     setEditItem,
     isedit,
     setisEdit,
+    shareid,
+    setShareid,
   } = useContext(Usercontext);
   const [activequestion, setActivequestion] = useState(0);
   const [polldata, setPolldata] = useState({
@@ -54,7 +57,7 @@ const Pollform = () => {
       ...prevState,
       questions: prevState.questions.filter((q) => q.id !== id),
     }));
-    console.log(index);
+    // console.log(index);
     setActivequestion(index);
     // setPolldata(updatedArr);
   };
@@ -174,9 +177,11 @@ const Pollform = () => {
         return;
       }
     }
-    await createpoll(polldata);
+    const data = await createpoll(polldata);
+    // console.log(data.poll._id);
     setQuizcreated(true);
     setShowmodal("");
+    setShareid("share");
     setQuiztype("");
     setInputdata("");
   };
@@ -193,6 +198,7 @@ const Pollform = () => {
     setQuiztype("");
     setInputdata("");
   };
+
   return (
     <Modal
       setShowmodal={setShowmodal}
@@ -211,7 +217,7 @@ const Pollform = () => {
                 onClick={() => gotoactiveclass(index)}
               >
                 <span>{index + 1}</span>
-                {index + 1 > 1 ? (
+                {isedit !== "edit" && index + 1 > 1 ? (
                   <div
                     className={styles.crossbutton}
                     onClick={(e) => deltequestion(e, item.id, index - 1)}
@@ -348,7 +354,7 @@ const Pollform = () => {
                                     )
                                   }
                                 />
-                                {index > 1 && (
+                                {isedit !== "edit" && index > 1 && (
                                   <RiDeleteBin5Line
                                     style={{
                                       fontSize: "1.5rem",
@@ -380,7 +386,7 @@ const Pollform = () => {
                                     )
                                   }
                                 />
-                                {index > 1 && (
+                                {isedit !== "edit" && index > 1 && (
                                   <RiDeleteBin5Line
                                     style={{
                                       fontSize: "1.5rem",

@@ -21,6 +21,8 @@ export const loginUser=async({email,password})=>{
          toast.success(data.message);
          return data;
       } catch (error) {
+        
          toast.error(error.response.data.message)
+             
       }
 }

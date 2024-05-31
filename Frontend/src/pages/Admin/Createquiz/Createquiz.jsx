@@ -7,6 +7,7 @@ import Quizform from "../Quizform/Quizform.jsx";
 import Pollform from "../Pollform/Pollform.jsx";
 import { useContext } from "react";
 import Usercontext from "../../../Context/Usercontext.js";
+import Sharequizmodal from "../../../components/Sharequiz/Sharequizmodal.jsx";
 const Createquiz = () => {
   const {
     quiztype,
@@ -15,6 +16,8 @@ const Createquiz = () => {
     setInputdata,
     modal,
     setShowmodal,
+    shareid,
+    setShareid,
   } = useContext(Usercontext);
   const takedata = (e) => {
     setInputdata(e.target.value);
