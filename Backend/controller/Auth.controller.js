@@ -2,7 +2,7 @@ import User from "../model/User.model.js";
 import asyncWrapper from "../middleware/asynchandler.middleware.js";
 import ApiError from "../utils/Apierror.utils.js";
 import { createJwtToken } from "../utils/Token.util.js";
-import othererror from "../utils/Othererror.utils.js";
+
 // register
 export const register = asyncWrapper(async (req, res, next) => {
     const { name, email, password,confirmPassword } = req.body;
