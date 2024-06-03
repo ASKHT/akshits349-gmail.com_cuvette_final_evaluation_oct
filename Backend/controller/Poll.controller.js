@@ -27,20 +27,22 @@ export const getallpoll = asyncWrapper(async (req, res, next) => {
 });
 
 export const deletepoll = asyncWrapper(async (req, res, next) => {
-    const { pollId } = req.params;
-    console.log(pollId)
-      const poll=await Poll.findOneAndDelete({ _id: pollId, userId: req.user.id});
-    //   console.log(poll)
-    if (!poll) {
-        return next(
-            new ApiError(
-                "No Poll found with this id, or you don't have permission to delete it.",
-                404
-            )
-        );
+   const { pollId } = req.params;
+    console.log(pollId);
+    try {
+        const poll = await Poll.findOneAndDelete({ _id: pollId, userId: req.user.id });
+        if (!poll) {
+            return res.status(404).json({
+                message: "No Poll found with this id, or you don't have permission to delete it.",
+                status: 'error'
+            });
+        }
+        return res.status(200).json({ message: "Poll deleted successfully", status: 'success' });
+    } catch (error) {
+        // Handle error gracefully
+        console.error("Error deleting poll:", error);
+        return res.status(500).json({ message: "An error occurred while deleting the poll.", status: 'error' });
     }
-    // await poll.save()
-    res.status(200).json({message:"quiz deleted sucessfully", status: 'success' });
 });
 export const getPoll = asyncWrapper(async (req, res, next) => {
     const { pollId } = req.params;
@@ -56,7 +58,6 @@ export const getPoll = asyncWrapper(async (req, res, next) => {
 });
 export const countPoll = asyncWrapper(async (req, res, next) => {
     const { pollId, questionId, optionId } = req.body;
-
     const poll = await Poll.findOne({ _id: pollId });
     const question = poll.questions.find((item) => item._id == questionId);
     const option = question.options.find((item) => item._id == optionId);

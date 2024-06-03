@@ -7,9 +7,10 @@ import Quizform from "../Quizform/Quizform";
 import Pollform from "../Pollform/Pollform";
 import UseAuth from "../../../hooks/useAuth";
 import Usercontext from "../../../Context/Usercontext";
+import Sharequizmodal from "../../../components/Sharequiz/Sharequizmodal";
 const Adminportal = () => {
   // const [modal, setShowmodal] = useState("");
-
+  const navigate = useNavigate();
   const {
     quizcreated,
     setQuizcreated,
@@ -26,13 +27,25 @@ const Adminportal = () => {
     setShowmodal("quiz");
     setisEdit("");
   };
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/auth");
+  };
+  const gotohomepage = () => {
+    navigate("/");
+  };
   return (
     isLoggedIn && (
       <div className={styles.adminscreen}>
         {/* leftsidebar */}
         <div className={styles.leftsidebar}>
           <div style={{ marginTop: "3rem" }}>
-            <img src={quizlogo} style={{ width: "11rem" }} alt="Quiz Logo" />
+            <img
+              src={quizlogo}
+              style={{ width: "11rem" }}
+              alt="Quiz Logo"
+              onClick={gotohomepage}
+            />
           </div>
           <div className={styles.menucontainer}>
             <div>
@@ -77,7 +90,9 @@ const Adminportal = () => {
                 width: "12rem",
               }}
             ></div>
-            <p className={styles.logoutbtn}>Logout</p>
+            <p className={styles.logoutbtn} onClick={handleLogout}>
+              Logout
+            </p>
           </div>
         </div>
         {/* rightsidebar */}
@@ -93,6 +108,7 @@ const Adminportal = () => {
         {modal === "Poll" && (
           <Pollform setShowmodal={setShowmodal} modal={modal} />
         )}
+        {modal === "share" && <Sharequizmodal />}
       </div>
     )
   );

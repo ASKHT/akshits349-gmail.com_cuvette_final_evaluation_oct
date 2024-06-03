@@ -16,8 +16,11 @@ export const createpoll = async ({category,questions,title}) => {
      toast.success("Data sent to backend successfully!");
     return data;
   } catch (error) {
-    toast.error(error.response.data.message)
-      throw error;
+    if (!error.response) {
+            toast.error(error.response.data.message);
+            throw error;
+        }
+          toast.error(error.response.data.message);
   }
 };
 export const updatePoll= async ({category,questions,title,_id}) => {
@@ -33,8 +36,11 @@ export const updatePoll= async ({category,questions,title,_id}) => {
      toast.success(data.message);
     return data;
   } catch (error) {
-    toast.error(error.response.data.message)
-      throw error;
+     if (!error.response) {
+            toast.error(error.response.data.message);
+            throw error;
+        }
+          toast.error(error.response.data.message);
   }
 };
 
@@ -50,6 +56,7 @@ export const getPollApi = async (pollId) => {
             toast.error(error.response.data.message);
             throw error;
         }
+          toast.error(error.response.data.message);  
     }
 };
 export const deletePollApi = async (pollId) => {
@@ -66,7 +73,7 @@ export const deletePollApi = async (pollId) => {
              toast.error(error.response.data.message);
             throw error;
         }
-       
+         toast.error(error.response.data.message);  
     }
 };
 

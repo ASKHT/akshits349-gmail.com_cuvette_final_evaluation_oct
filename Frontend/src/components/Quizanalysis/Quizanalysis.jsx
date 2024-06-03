@@ -78,7 +78,16 @@ const Quizanalysis = () => {
               <div className={styles.options}>
                 {q.options.map((option, index) => (
                   <div className={styles.pollCard} key={option.id || index}>
-                    <div className={styles.pollAnswer}>{option.text}</div>
+                    <div className={styles.pollAnswer}>
+                      {option.votes}
+                      <span
+                        style={{
+                          fontWeight: "normal",
+                          paddingLeft: "10px",
+                          fontSize: "21px",
+                        }}
+                      >{`option ${index + 1}`}</span>
+                    </div>
                     {/* <div>4</div> */}
                   </div>
                 ))}

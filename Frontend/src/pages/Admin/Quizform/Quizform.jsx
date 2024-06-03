@@ -96,7 +96,14 @@ const Quizform = () => {
       ...prev,
       questions: prev.questions.map((question) =>
         question.id === questionId
-          ? { ...question, optionsType: newOptionsType }
+          ? {
+              ...question,
+              optionsType: newOptionsType,
+              options: [
+                { id: uuidv4(), text: "", image: "" },
+                { id: uuidv4(), text: "", image: "" },
+              ],
+            }
           : question
       ),
     }));
@@ -141,7 +148,7 @@ const Quizform = () => {
         ...newArr.questions[activequestion],
         options: newArr.questions[activequestion].options.map((option) => {
           if (isedit === "edit" && option._id === optionId) {
-            console.log(option._id, optionId);
+            // console.log(option._id, optionId);
             return {
               ...option,
               [e.target.name]: e.target.value,
@@ -211,7 +218,7 @@ const Quizform = () => {
     setQuizcreated(true);
     setShareid(data2.quiz._id);
     setShowmodal("share");
-    setQuiztype("");
+    // setQuiztype("");
     setInputdata("");
   };
 
@@ -332,7 +339,12 @@ const Quizform = () => {
                   }
                   className={styles.radioInput}
                   onChange={(e) =>
-                    handleOptionChange(e, data?.questions[activequestion].id)
+                    handleOptionChange(
+                      e,
+                      isedit === "edit"
+                        ? data?.questions[activequestion]._id
+                        : data?.questions[activequestion].id
+                    )
                   }
                 />
                 <label htmlFor="option1" className={styles.radioLabel}>
@@ -349,7 +361,12 @@ const Quizform = () => {
                   }
                   className={styles.radioInput}
                   onChange={(e) =>
-                    handleOptionChange(e, data?.questions[activequestion]?.id)
+                    handleOptionChange(
+                      e,
+                      isedit === "edit"
+                        ? data?.questions[activequestion]._id
+                        : data?.questions[activequestion].id
+                    )
                   }
                 />
                 <label htmlFor="option2" className={styles.radioLabel}>
@@ -367,7 +384,12 @@ const Quizform = () => {
                   }
                   className={styles.radioInput}
                   onChange={(e) =>
-                    handleOptionChange(e, data?.questions[activequestion].id)
+                    handleOptionChange(
+                      e,
+                      isedit === "edit"
+                        ? data?.questions[activequestion]._id
+                        : data?.questions[activequestion].id
+                    )
                   }
                 />
                 <label htmlFor="option3" className={styles.radioLabel}>
@@ -452,7 +474,10 @@ const Quizform = () => {
                                   placeholder="imageurl"
                                   value={item.image}
                                   onChange={(e) =>
-                                    handleInputChange(e, item?.id)
+                                    handleInputChange(
+                                      e,
+                                      isedit === "edit" ? item?._id : item.id
+                                    )
                                   }
                                   className={`${
                                     data?.questions[activequestion]?.answer ===
@@ -497,7 +522,12 @@ const Quizform = () => {
                                       placeholder="Text"
                                       value={item.text}
                                       onChange={(e) =>
-                                        handleInputChange(e, item?.id)
+                                        handleInputChange(
+                                          e,
+                                          isedit === "edit"
+                                            ? item?._id
+                                            : item.id
+                                        )
                                       }
                                       className={`${
                                         data?.questions[activequestion]
@@ -511,7 +541,12 @@ const Quizform = () => {
                                       placeholder="imageurl"
                                       value={item.image}
                                       onChange={(e) =>
-                                        handleInputChange(e, item?.id)
+                                        handleInputChange(
+                                          e,
+                                          isedit === "edit"
+                                            ? item?._id
+                                            : item.id
+                                        )
                                       }
                                       className={`${
                                         data?.questions[activequestion]

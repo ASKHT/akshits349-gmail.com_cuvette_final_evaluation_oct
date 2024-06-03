@@ -65,6 +65,7 @@ export const getstats=asyncWrapper(async(req,res,next)=>{
       stats.totalquiz=poll.length+quiz.length;
       let totalquizquestion=0;
       let totalpollquestion=0;
+      
       poll.forEach((q)=>{
          totalpollquestion+=q.questions.length;
       })
@@ -84,9 +85,21 @@ export const getstats=asyncWrapper(async(req,res,next)=>{
   });
 
   stats.totalImpressions = totalPollImpressions + totlaQuizImpressions;
+const trendingItems = [];
 
+  quiz.forEach((item) => {
+    if (item.impression > 10) {
+      trendingItems.push({ type: "quiz", ...item.toObject()});
+    }
+  });
+
+  poll.forEach((item) => {
+    if (item.impression > 10) {
+      trendingItems.push({ type: "poll", ...item.toObject()});
+    }
+  });
   res.status(200).json({
     status: 'success',
-    data: { stats }
+    data: { stats,trendingItems }
   });
 })

@@ -61,7 +61,7 @@ const Signup = ({ setLogin }) => {
       });
       setErrors(formattedErrors);
       Object.values(formattedErrors).forEach((errorMessage) => {
-        toast.error(errorMessage);
+        // toast.error(errorMessage);
       });
     }
   };

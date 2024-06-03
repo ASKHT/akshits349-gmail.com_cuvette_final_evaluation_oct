@@ -16,10 +16,9 @@ export const createquiz =asyncWrapper( async(req,res,next)=>{
 
 export const updatequiz =asyncWrapper( async(req,res,next)=>{
   const {category, questions,title } = req.body;
+  console.log(questions)
   const  id  = req.params.id;
-  console.log(id)
-//   console.log(questions);
-
+  // console.log(id)
   const quiz = await Quizz.findOneAndUpdate(
     {
       _id: id,
@@ -51,32 +50,45 @@ export const getallquiz = asyncWrapper(async (req, res, next) => {
 });
 
 export const deletequiz = asyncWrapper(async (req, res, next) => {
-    const { quizid } = req.params;
-    const quiz=  await Quizz.findOneAndDelete({ _id: quizid,userId:req.user.id});
-    // console.log(quiz)
-    console.log(quiz)
-    if (!quiz) {
-        return next(
-            new ApiError(
-                "No Quizz found with this id, or you don't have permission to delete it.",
-                404
-            )
-        );
+     const {quizid } = req.params;
+    // console.log(quizid);
+    try {
+        const quiz = await Quizz.findOneAndDelete({ _id: quizid, userId: req.user.id });
+        if (!quiz) {
+            return res.status(404).json({
+                message: "No quiz found with this id, or you don't have permission to delete it.",
+                status: 'error'
+            });
+        }
+        return res.status(200).json({ message: "Poll deleted successfully", status: 'success' });
+    } catch (error) {
+        console.error("Error deleting quiz:", error);
+        return res.status(500).json({ message: "An error occurred while deleting the quiz.", status: 'error' });
     }
-    // await quiz.save()
-    res.status(200).json({ status: 'success' });
 });
 export const getquiz = asyncWrapper(async (req, res, next) => {
     const { quizid } = req.params;
     // console.log(pollId)
     const quiz = await Quizz.findOne({ _id: quizid});
-    if (!poll) {
-        throw next(new CustomError(400, "poll does not exist"));
+    if (!quiz) {
+        throw next(new Othererrors(400, "quiz does not exist"));
     }
     quiz.impression+=1;
     await quiz.save()
     // console.log(poll)
     res.status(200).json({ quiz });
+});
+export const countquizattempt = asyncWrapper(async (req, res, next) => {
+    const { quizId, questionId, answer } = req.body;
+    console.log(answer)
+    const quiz = await Quizz.findOne({ _id: quizId });
+    const question = quiz.questions.find((item) => item._id == questionId);
+    question.numOfAttempts += 1;
+    if (question.answer ==answer) {
+        question.numOFCorrect += 1;
+    }
+    await quiz.save();
+    res.status(200).json({ message: "success",answer:answer });
 });
 
 

@@ -66,6 +66,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  /* text-align: center; */
 }
 .pollCard {
   width: 12.3125rem;
@@ -87,6 +88,10 @@
   font-weight: 600;
   line-height: normal;
   left: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
 }
 .Answer {
   color: #474444;

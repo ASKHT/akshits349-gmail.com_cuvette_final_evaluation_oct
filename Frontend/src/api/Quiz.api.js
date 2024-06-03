@@ -14,7 +14,11 @@ export const createquiz = async ({category,questions,title}) => {
      toast.success("Data sent to backend successfully!");
     return data;
   } catch (error) {
-    toast.error(error.response.data.message)
+    if (!error.response) {
+            toast.error(error.response.data.message);
+            throw error;
+        }
+          toast.error(error.response.data.message);
   }
 };
 
@@ -31,8 +35,11 @@ export const updatequiz= async ({category,questions,title,_id}) => {
      toast.success(data.message);
     return data;
   } catch (error) {
-    toast.error(error.response.data.message)
-      throw error;
+    if (!error.response) {
+            toast.error(error.response.data.message);
+            throw error;
+        }
+          toast.error(error.response.data.message);
   }
 };
 export const deleteQuizApi = async (quizid) => {
@@ -50,6 +57,35 @@ export const deleteQuizApi = async (quizid) => {
              toast.error(error.response.data.message);
             throw error;
         }
-       
+         toast.error(error.response.data.message);  
+    }
+};
+
+
+export const getQuizApi = async (quizid) => {
+  console.log(quizid)
+    try {
+        const { data } = await axios.get(`${BASE_URL}/quiz/getquiz/${quizid}`);
+        return data;
+    } catch (error) {
+        if (!error.response) {
+            toast.error(error.message);
+            throw error;
+        }
+        toast.error(error.response.data.message);
+    }
+};
+
+export const countQuizApi = async (quizId, questionId, answer) => {
+  console.log(answer)
+    try {
+        const { data } = await axios.put(`${BASE_URL}/quiz/userattempt`, { quizId, questionId, answer });
+        return data;
+    } catch (error) {
+        if (!error.response) {
+            toast.error(error.message);
+            throw error;
+        }
+        toast.error(error.response.data.message);
     }
 };

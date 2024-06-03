@@ -55,8 +55,31 @@
     justify-content: start;
     width:70rem;
     height: 20rem;
-     /* padding-bottom: 2rem; */
+     padding-bottom: 2rem;
     overflow-y: scroll;
     /* overflow-y: auto;
     height: 400px; */
+}
+.trendingContainer {
+  overflow-y: auto; /* Enable vertical scrollbar */
+  scrollbar-width: thin; /* "auto" | "thin" | "none" */
+  scrollbar-color: #C7C8CC transparent; /* thumb | track */
+  max-height:20rem; /* Set a max height to see the scrollbar */
+
+}
+
+/* Track */
+.trendingContainer::-webkit-scrollbar-track {
+  background: transparent; /* Change the background color */
+}
+
+/* Handle */
+.trendingContainer::-webkit-scrollbar-thumb {
+  background: #888; /* Change the color of the scrollbar thumb */
+  border-radius: 18px; /* Roundness of the scrollbar thumb */
+}
+
+/* Handle on hover */
+.trendingContainer::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Change the color of the scrollbar thumb on hover */
 }

@@ -8,7 +8,11 @@ export const register=async({email,name,password,confirmPassword})=>{
          toast.success(data.message)
          return data;
    } catch (error) {
-        toast.error(error.response.data.message)
+       if (!error.response) {
+            toast.error(error.response.data.message);
+            throw error;
+        }
+          toast.error(error.response.data.message);
          
    }
 
@@ -22,7 +26,11 @@ export const loginUser=async({email,password})=>{
          return data;
       } catch (error) {
         
-         toast.error(error.response.data.message)
+        if (!error.response) {
+            toast.error(error.response.data.message);
+            throw error;
+        }
+          toast.error(error.response.data.message);
              
       }
 }

@@ -1,7 +1,9 @@
 .trendingCard {
     background-color: white;
     border-radius: 5px;
-    padding: 8px;
+    padding: 10px;
+    width:20rem;
+    height:6rem;
 }
 
 .trendingTop {

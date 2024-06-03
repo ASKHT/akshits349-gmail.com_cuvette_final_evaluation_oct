@@ -1,7 +1,7 @@
 .container {
     background-color: #041325;
     width: 100vw;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,8 +37,6 @@
 
 .trophy {
     margin: 0 auto;
-    width: 200px;
-    height: 200px;
 }
 
 .topContainer {
@@ -47,16 +45,15 @@
 }
 
 .question {
-    text-align: center;
     margin: 10px 0;
 }
 
 .optionContainer {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
     gap: 40px;
     justify-items: center;
-    align-items: center;
 }
 
 .option {
@@ -103,16 +100,16 @@
     cursor: pointer;
 }
 
-@media (min-width: 768px) {
+@media screen and (max-width: 768px) {
     .optionContainer {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        gap: 40px;
-        justify-items: center;
+        grid-template-columns: 1fr; /* Change to single column on smaller screens */
     }
 
-    .question {
-        text-align: left;
+    .option {
+        width: 100%;
+    }
+
+    .submit {
+        padding: 2vw 4vw; /* Adjust padding for smaller screens */
     }
 }

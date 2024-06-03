@@ -89,7 +89,14 @@ const Pollform = () => {
       ...prev,
       questions: prev.questions.map((question) =>
         question.id === questionId
-          ? { ...question, optionsType: newOptionsType }
+          ? {
+              ...question,
+              optionsType: newOptionsType,
+              options: [
+                { id: uuidv4(), text: "", image: "" },
+                { id: uuidv4(), text: "", image: "" },
+              ],
+            }
           : question
       ),
     }));
@@ -183,7 +190,7 @@ const Pollform = () => {
     setQuizcreated(true);
     setShowmodal("share");
     setShareid(data.poll._id);
-    setQuiztype("");
+    // setQuiztype("");
     setInputdata("");
   };
 
@@ -305,7 +312,9 @@ const Pollform = () => {
                   onChange={(e) =>
                     handleOptionChange(
                       e,
-                      polldata?.questions[activequestion].id
+                      isedit === "edit"
+                        ? polldata?.questions[activequestion]._id
+                        : polldata?.questions[activequestion].id
                     )
                   }
                 />
@@ -325,7 +334,9 @@ const Pollform = () => {
                   onChange={(e) =>
                     handleOptionChange(
                       e,
-                      polldata?.questions[activequestion]?.id
+                      isedit === "edit"
+                        ? polldata?.questions[activequestion]._id
+                        : polldata?.questions[activequestion].id
                     )
                   }
                 />
@@ -346,7 +357,9 @@ const Pollform = () => {
                   onChange={(e) =>
                     handleOptionChange(
                       e,
-                      polldata?.questions[activequestion].id
+                      isedit === "edit"
+                        ? polldata?.questions[activequestion]._id
+                        : polldata?.questions[activequestion].id
                     )
                   }
                 />

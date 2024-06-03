@@ -29,3 +29,16 @@ export const questionanalysis = async (id) => {
     toast.error(error.response.data.message)
   }
 };
+export const getstats = async () => {
+  try {
+    const token = JSON.parse(localStorage.getItem("token"));
+    const {data} = await axios.get(`${BASE_URL}/user/getstats`,{
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  } catch (error) {
+    toast.error(error.response.data.message)
+  }
+};
