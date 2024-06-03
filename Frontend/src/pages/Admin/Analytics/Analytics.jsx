@@ -74,8 +74,8 @@ const Analytics = () => {
 
   const copylinkid = (id, type) => {
     type === "Q&A"
-      ? navigator.clipboard.writeText(`https://Aksquizzie/quiz/${id}`)
-      : navigator.clipboard.writeText(`https://Aksquizzie/poll/${id}`);
+      ? navigator.clipboard.writeText(`https://aksquizzie/quiz/${id}`)
+      : navigator.clipboard.writeText(`https://aksquizzie/poll/${id}`);
     toast.success("link copied");
   };
 
