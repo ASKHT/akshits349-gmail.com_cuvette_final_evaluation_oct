@@ -10,8 +10,8 @@ const Sharequizmodal = () => {
     useContext(Usercontext);
   const copytext = () => {
     quiztype === "Q&A"
-      ? navigator.clipboard.writeText(`http://localhost:5173/quiz/${shareid}`)
-      : navigator.clipboard.writeText(`http://localhost:5173/poll/${shareid}`);
+      ? navigator.clipboard.writeText(`https://Aksquizzie/quiz/${shareid}`)
+      : navigator.clipboard.writeText(`https://Aksquizzie/poll/${shareid}`);
     toast.success("link copied successfully");
   };
   const handleclose = () => {
