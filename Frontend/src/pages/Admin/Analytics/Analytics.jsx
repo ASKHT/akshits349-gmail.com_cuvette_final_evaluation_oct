@@ -74,8 +74,12 @@ const Analytics = () => {
 
   const copylinkid = (id, type) => {
     type === "Q&A"
-      ? navigator.clipboard.writeText(`https://aksquizzie/quiz/${id}`)
-      : navigator.clipboard.writeText(`https://aksquizzie/poll/${id}`);
+      ? navigator.clipboard.writeText(
+          `https://aksquizzie.netlify.app/quiz/${id}`
+        )
+      : navigator.clipboard.writeText(
+          `https://aksquizzie.netlify.app/poll/${id}`
+        );
     toast.success("link copied");
   };
 

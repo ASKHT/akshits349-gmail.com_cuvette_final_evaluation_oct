@@ -10,8 +10,12 @@ const Sharequizmodal = () => {
     useContext(Usercontext);
   const copytext = () => {
     quiztype === "Q&A"
-      ? navigator.clipboard.writeText(`https://aksquizzie/quiz/${shareid}`)
-      : navigator.clipboard.writeText(`https://aksquizzie/poll/${shareid}`);
+      ? navigator.clipboard.writeText(
+          `https://aksquizzie.netlify.app/quiz/${shareid}`
+        )
+      : navigator.clipboard.writeText(
+          `https://aksquizzie.netlify.app/poll/${shareid}`
+        );
     toast.success("link copied successfully");
   };
   const handleclose = () => {
